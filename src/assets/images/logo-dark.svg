@@ -1,0 +1,29 @@
+<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="shieldGradDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFB347"/>
+      <stop offset="50%" style="stop-color:#FF9933"/>
+      <stop offset="100%" style="stop-color:#FF6600"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Shield shape -->
+  <path d="M60 6 L108 30 L108 66 C108 90 87 111 60 117 C33 111 12 90 12 66 L12 30 Z"
+        fill="url(#shieldGradDark)" />
+
+  <!-- Inner shield - dark -->
+  <path d="M60 15 L99 35 L99 65 C99 84 82 102 60 107 C38 102 21 84 21 65 L21 35 Z"
+        fill="#1F2937" />
+
+  <!-- Rupee symbol ₹ - brighter for dark mode -->
+  <g fill="#FF9933" transform="translate(36, 33)">
+    <!-- Top horizontal line -->
+    <rect x="0" y="0" width="48" height="6" rx="1"/>
+    <!-- Second horizontal line -->
+    <rect x="0" y="12" width="48" height="6" rx="1"/>
+    <!-- Vertical stem and diagonal -->
+    <path d="M9 18 L9 33 L30 60 L39 60 L18 33 L18 18 Z"/>
+    <!-- Curve of ₹ -->
+    <path d="M18 0 C39 0 45 12 45 18 L36 18 C36 15 33 9 18 9 L18 0 Z"/>
+  </g>
+</svg>

@@ -1,0 +1,54 @@
+import { createRouter, createWebHistory } from 'vue-router'
+import { handleHotUpdate, routes } from 'vue-router/auto-routes'
+
+import type { EnhancedRouteLocation } from './types'
+import { useRouteCacheStore, useUserStore } from '@/stores'
+
+import { isLogin } from '@/utils/auth'
+import setPageTitle from '@/utils/set-page-title'
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.VITE_APP_PUBLIC_PATH),
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    void to
+    void from
+    // 如果有保存的位置（比如浏览器的前进后退），则使用保存的位置
+    if (savedPosition) {
+      return savedPosition
+    }
+    // 否则始终滚动到顶部
+    return { top: 0, left: 0 }
+  },
+})
+
+// This will update routes at runtime without reloading the page
+if (import.meta.hot)
+  handleHotUpdate(router)
+
+router.beforeEach(async (to: EnhancedRouteLocation) => {
+  const routeCacheStore = useRouteCacheStore()
+  const userStore = useUserStore()
+
+  // Route cache
+  routeCacheStore.addRoute(to)
+
+  // Set page title
+  setPageTitle(to.name)
+
+  if (isLogin() && !userStore.userInfo?.uid)
+    await userStore.info()
+
+  if (to.name === 'Profile')
+    await userStore.info()
+})
+
+router.afterEach(() => {
+  // 确保每次路由切换后滚动到顶部
+  window.scrollTo(0, 0)
+  // 也确保任何可滚动的容器都滚动到顶部
+  document.documentElement.scrollTop = 0
+  document.body.scrollTop = 0
+})
+
+export default router
