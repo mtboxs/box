@@ -54,7 +54,8 @@ async function register() {
     const res = await userStore.register({
       inviteCode: postData.inviteCode,
       phone: postData.phone,
-      password: postData.password,
+      nickname: postData.phone, // Use phone as default nickname
+      loginPassword: postData.password,
     })
     if (res && res.code === '200') {
       showNotify({ type: 'success', message: t('register.registerSuccess') })

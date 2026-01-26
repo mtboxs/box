@@ -144,7 +144,7 @@ export function getHomeInfo(): Promise<ApiResponse<HomeInfo>> {
   })
 }
 
-export function readNotify(id: number): Promise<ApiResponse<null>> {
+export function readNotify(_id: number): Promise<ApiResponse<null>> {
   return Promise.resolve({ code: '200', data: null, msg: 'Deprecated' })
 }
 

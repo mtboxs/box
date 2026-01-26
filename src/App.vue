@@ -32,7 +32,7 @@ const keepAliveRouteNames = computed(() => {
   return routeCacheStore.routeCaches
 })
 
-const showNavBar = computed(() => !route.meta?.hideNavbar)
+// const showNavBar = computed(() => !route.meta?.hideNavbar)
 const showTabBar = computed(() => !route.meta?.hideTabbar)
 
 </script>

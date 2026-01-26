@@ -84,17 +84,6 @@ const onSubmit = async () => {
       await userStore.info()
       isEditing.value = false
       form.value.withdrawPassword = ''
-    } else if (res.code === '4000') {
-      // Need to set withdraw password first
-      showDialog({
-        title: t('profile.tips'),
-        message: t('bankCard.setWithdrawPwdFirst'),
-        confirmButtonText: t('bankCard.goToSet'),
-        cancelButtonText: t('profile.cancel'),
-        showCancelButton: true,
-      }).then(() => {
-        router.push('/profile/change-password?tab=withdraw')
-      }).catch(() => {})
     } else {
       showToast({ type: 'fail', message: res.msg || t('record.failed') })
     }

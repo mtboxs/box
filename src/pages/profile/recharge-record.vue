@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { getRechargeRecords } from '@/api/mine'
 import type { MbrRechargeRecord } from '@/api/mine'

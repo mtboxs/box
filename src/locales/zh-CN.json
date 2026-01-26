@@ -1,7 +1,7 @@
 {
   "app": {
-    "name": "BitCent",
-    "description": "安全的数字支付平台"
+    "name": "MK",
+    "description": "高级跨境平台"
   },
 
   "navbar": {
@@ -708,7 +708,9 @@
     "saveSuccess": "保存成功",
     "bound": "已绑定",
     "confirmSave": "确认保存银行卡信息？",
-    "confirmUpdate": "确认更新银行卡信息？"
+    "confirmUpdate": "确认更新银行卡信息？",
+    "setWithdrawPwdFirst": "请先设置提现密码",
+    "goToSet": "去设置"
   },
   "changePwd": {
     "title": "修改密码",

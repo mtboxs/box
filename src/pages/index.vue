@@ -116,18 +116,14 @@ const formatCurrency = (val: number | string) => {
 
 // Mock Brands from target site
 const mockBrands: BrandInfo[] = [
-  { id: 1, brandName: 'Presta Shop', brandLogoUrl: 'https://08-tiki-img.s3.ap-southeast-1.amazonaws.com/image/20251206/88e48d92b96a1df5e6b310cd6c9996da.jpg', brandSort: 0, disabled: false, createBy: '', createAt: '', updateAt: '' },
-  { id: 2, brandName: 'APPLE', brandLogoUrl: 'https://08-tiki-img.s3.ap-southeast-1.amazonaws.com/image/20250915/596fe8b299a5876fbaf78dd2c641a322.png', brandSort: 0, disabled: false, createBy: '', createAt: '', updateAt: '' },
-  { id: 3, brandName: 'CHANEL', brandLogoUrl: 'https://08-tiki-img.s3.ap-southeast-1.amazonaws.com/image/20250915/4916aa4f9a795010f8886540d2cf99e7.png', brandSort: 0, disabled: false, createBy: '', createAt: '', updateAt: '' },
-  { id: 4, brandName: 'Electrolux', brandLogoUrl: 'https://08-tiki-img.s3.ap-southeast-1.amazonaws.com/image/20250915/d3b6e406979cb4cb00576044bff77d67.png', brandSort: 0, disabled: false, createBy: '', createAt: '', updateAt: '' },
-  { id: 5, brandName: 'Rolex', brandLogoUrl: 'https://08-tiki-img.s3.ap-southeast-1.amazonaws.com/image/20250915/8b6a3da50a3994d39c6f365621025fff.png', brandSort: 0, disabled: false, createBy: '', createAt: '', updateAt: '' },
-  { id: 6, brandName: 'Louis Vuitton', brandLogoUrl: 'https://08-tiki-img.s3.ap-southeast-1.amazonaws.com/image/20250915/6b315a431076ce9be9827e7003edf5ef.png', brandSort: 0, disabled: false, createBy: '', createAt: '', updateAt: '' },
-  { id: 7, brandName: 'DIOR', brandLogoUrl: 'https://08-tiki-img.s3.ap-southeast-1.amazonaws.com/image/20250915/9f2afe1e990ef13684e0263d37acc205.png', brandSort: 0, disabled: false, createBy: '', createAt: '', updateAt: '' },
-  { id: 8, brandName: 'Celine', brandLogoUrl: 'https://08-tiki-img.s3.ap-southeast-1.amazonaws.com/image/20250915/cad234471d972763bd56ebb9f3081119.png', brandSort: 0, disabled: false, createBy: '', createAt: '', updateAt: '' },
-  { id: 9, brandName: 'PHILIPS', brandLogoUrl: 'https://08-tiki-img.s3.ap-southeast-1.amazonaws.com/image/20250712/4da9219468e666ab57173ca9edd3b4d2.jpg', brandSort: 0, disabled: false, createBy: '', createAt: '', updateAt: '' },
-  { id: 10, brandName: 'Adidas', brandLogoUrl: 'https://www.thprestashop.store/upload/image/20240103/60892abcf9c13811884f66773a278e32.jpg', brandSort: 0, disabled: false, createBy: '', createAt: '', updateAt: '' },
-  { id: 11, brandName: 'SONY', brandLogoUrl: 'https://www.thprestashop.store/upload/image/20240103/678a0e33476c1d4169be2a58f037e68b.jpg', brandSort: 0, disabled: false, createBy: '', createAt: '', updateAt: '' },
-  { id: 12, brandName: 'MSI', brandLogoUrl: 'https://08-tiki-img.s3.ap-southeast-1.amazonaws.com/image/20241212/72b7970e28e31f642d09ec21680ceb76.jpg', brandSort: 0, disabled: false, createBy: '', createAt: '', updateAt: '' },
+  { id: 1, brandName: 'Presta Shop', brandLogoUrl: 'https://img.icons8.com/color/48/prestashop.png', brandSort: 0, disabled: false, createBy: '', createAt: '', updateAt: '' },
+  { id: 2, brandName: 'PHILIPS', brandLogoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Philips_logo.svg/2560px-Philips_logo.svg.png', brandSort: 0, disabled: false, createBy: '', createAt: '', updateAt: '' },
+  { id: 3, brandName: 'SONY', brandLogoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Sony_logo.svg/2560px-Sony_logo.svg.png', brandSort: 0, disabled: false, createBy: '', createAt: '', updateAt: '' },
+  { id: 4, brandName: 'LYN', brandLogoUrl: 'https://www.lynaround.com/media/wysiwyg/lynaround/logo-lynaround.png', brandSort: 0, disabled: false, createBy: '', createAt: '', updateAt: '' },
+  { id: 5, brandName: 'LINE', brandLogoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/LINE_logo.svg/1024px-LINE_logo.svg.png', brandSort: 0, disabled: false, createBy: '', createAt: '', updateAt: '' },
+  { id: 6, brandName: 'Adidas', brandLogoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Adidas_Logo.svg/2560px-Adidas_Logo.svg.png', brandSort: 0, disabled: false, createBy: '', createAt: '', updateAt: '' },
+  { id: 7, brandName: 'MSI', brandLogoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/MSI_Logo.svg/2560px-MSI_Logo.svg.png', brandSort: 0, disabled: false, createBy: '', createAt: '', updateAt: '' },
+  { id: 8, brandName: 'NIKE', brandLogoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/2560px-Logo_NIKE.svg.png', brandSort: 0, disabled: false, createBy: '', createAt: '', updateAt: '' },
 ]
 
 // Mock Banners
@@ -164,7 +160,10 @@ const banners = [
         <div class="bg-white/80 p-1.5 rounded-full backdrop-blur-sm cursor-pointer z-50 pointer-events-auto" @click.stop="router.push('/profile/chat')">
            <img src="https://www.thprestashop.store/static/index/red/images/kefu.png" class="w-5 h-5 pointer-events-none" />
         </div>
-        <div 
+        <div class="bg-white/80 p-1.5 rounded-full backdrop-blur-sm cursor-pointer z-50 pointer-events-auto" @click.stop="router.push('/profile')">
+           <img src="https://www.thprestashop.store/static/index/red/images/icon-me.png" class="w-5 h-5 pointer-events-none" />
+        </div>
+        <div
           class="bg-white/90 px-2 py-1 rounded text-xs font-bold text-red-600 flex items-center cursor-pointer active:scale-95 transition-transform z-50 pointer-events-auto"
           @click.stop="showLangSheet = true"
         >
@@ -198,22 +197,32 @@ const banners = [
         </div>
       </div>
 
-      <!-- Promo Tiles (Static/Placeholder as per Image 2) -->
-      <div class="grid grid-cols-3 gap-3 mb-8">
-         <div class="bg-[#FDF6F0] h-24 rounded-lg flex flex-col items-center justify-center p-2">
-            <span class="text-[10px] text-gray-500 uppercase tracking-wider mb-1">{{ t('home.product') }}</span>
-            <div class="font-serif italic text-lg text-gray-800">Presta</div>
-            <div class="text-xs font-bold text-gray-400">SHOP</div>
+      <!-- Promo Tiles (Removed) -->
+      <!-- <div class="grid grid-cols-3 gap-3 mb-8">
+         <div class="h-24 rounded-lg overflow-hidden relative shadow-sm">
+            <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=2071&auto=format&fit=crop" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-white/20"></div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-1">
+               <span class="text-[8px] font-serif text-black/70 tracking-widest mb-0.5">PRESTA SHOP</span>
+               <div class="text-[10px] font-serif italic text-black/50 leading-tight">Korean Fragrances</div>
+            </div>
          </div>
-         <div class="bg-[#F0F4F8] h-24 rounded-lg flex flex-col items-center justify-center p-2 relative overflow-hidden">
-             <div class="absolute inset-0 bg-gray-200 opacity-50"></div>
-             <span class="relative z-10 text-xs font-bold">{{ t('home.newArrival') }}</span>
+         <div class="h-24 rounded-lg overflow-hidden relative shadow-sm bg-[#FDF6F0]">
+            <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover opacity-90" />
+            <div class="absolute inset-0 flex flex-col items-center justify-center bg-white/40 backdrop-blur-[1px]">
+               <div class="text-[8px] font-bold tracking-widest text-black mb-0.5">PRODUCT</div>
+               <div class="text-[8px] font-bold tracking-widest text-black">PRESTA</div>
+               <div class="text-[8px] font-bold tracking-widest text-black">SHOP</div>
+               <div class="font-serif italic text-sm text-purple-800 mt-1 drop-shadow-sm">Presta Shop</div>
+            </div>
          </div>
-         <div class="bg-[#F5F0F0] h-24 rounded-lg flex flex-col items-center justify-center p-2 relative overflow-hidden">
-             <div class="absolute inset-0 bg-gray-200 opacity-50"></div>
-             <span class="relative z-10 text-xs font-bold">{{ t('home.bestSeller') }}</span>
+         <div class="h-24 rounded-lg overflow-hidden relative shadow-sm">
+            <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 flex flex-col items-center justify-center p-1">
+               <div class="font-serif text-[10px] text-black/80 tracking-widest mb-1">PRESTASHOP</div>
+            </div>
          </div>
-      </div>
+      </div> -->
 
       <!-- Main Action Button -->
       <div class="mb-8 flex justify-center">
@@ -250,7 +259,7 @@ const banners = [
 
     <!-- Product List -->
     <div class="px-4 pb-20 space-y-3 bg-gray-50 pt-2">
-       <div v-for="prod in products" :key="prod.id" class="bg-white rounded-xl p-3 flex gap-4 shadow-sm border border-gray-100">
+       <div v-for="prod in products" :key="prod.id" class="bg-white rounded-xl p-3 flex gap-4 shadow-sm border border-gray-100 active:bg-gray-50 transition-colors cursor-pointer" @click="router.push(`/product/${prod.id}`)">
           <!-- Product Image -->
           <div class="w-24 h-24 rounded-lg bg-gray-50 flex-shrink-0 overflow-hidden">
              <img :src="prod.pic1Url" class="w-full h-full object-cover" :alt="prod.productName" />

@@ -46,9 +46,8 @@ async function handleLogin() {
       <!-- Top Mascot & Logo -->
       <div class="pt-8 pb-4 text-center">
         <!-- Mascot Circle -->
-        <div class="w-24 h-24 mx-auto rounded-full bg-[#A8E6F0] flex items-end justify-center overflow-hidden mb-3 border-4 border-white shadow-sm relative z-10">
-           <!-- Using a specific image if possible, otherwise placeholder -->
-           <img src="https://www.prestashop.com/sites/default/files/wysiwyg/preston-graduate.png" class="w-20 h-20 object-contain -mb-1" />
+        <div class="w-24 h-24 mx-auto rounded-full bg-[#A8E6F0] flex items-center justify-center overflow-hidden mb-3 border-4 border-white shadow-sm relative z-10">
+           <img src="/logo.jpg" class="w-full h-full object-cover" />
         </div>
         
         <!-- Brand Text -->

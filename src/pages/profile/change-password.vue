@@ -1,13 +1,21 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { modifyLoginPassword, modifyWithdrawPassword } from '@/api/mine'
 import { showToast, showLoadingToast, closeToast } from 'vant'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 const router = useRouter()
+const route = useRoute()
 const activeTab = ref(0) // 0: Login Pwd, 1: Withdraw Pwd
+
+// Handle query param to switch tab (e.g., ?tab=withdraw)
+onMounted(() => {
+  if (route.query.tab === 'withdraw') {
+    activeTab.value = 1
+  }
+})
 
 const loginForm = ref({
   oldPassword: '',

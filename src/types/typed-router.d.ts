@@ -135,6 +135,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    'ProductDetail': RouteRecordInfo<
+      'ProductDetail',
+      '/product/:id',
+      { id: ParamValue<true> },
+      { id: ParamValue<false> },
+      | never
+    >,
     'Profile': RouteRecordInfo<
       'Profile',
       '/profile',
@@ -430,6 +437,12 @@ declare module 'vue-router/auto-routes' {
     'src/pages/pay/index.vue': {
       routes:
         | 'Pay'
+      views:
+        | never
+    }
+    'src/pages/product/[id].vue': {
+      routes:
+        | 'ProductDetail'
       views:
         | never
     }

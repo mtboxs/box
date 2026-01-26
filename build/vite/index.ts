@@ -105,9 +105,9 @@ export function createVitePlugins(mode: string) {
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'logo.svg', 'safari-pinned-tab.svg'],
       manifest: {
-        name: 'BitCent',
-        short_name: 'BitCent',
-        description: 'Secure Digital Payment Platform',
+        name: 'MK',
+        short_name: 'MK',
+        description: 'Premium Cross-Border Platform',
         theme_color: '#FF9933',
         background_color: '#FFF9F5',
         icons: [

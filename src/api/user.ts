@@ -83,3 +83,9 @@ export function logout(): Promise<ApiResponse<void>> {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
   })
 }
+
+// --- Legacy/Placeholder Functions for Build Compatibility ---
+
+export function sendOtp(_data?: any): Promise<ApiResponse<void>> {
+  return Promise.resolve({ code: '200', data: undefined, msg: 'OTP sent' })
+}

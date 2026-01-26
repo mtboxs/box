@@ -2,6 +2,7 @@
 import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/modules/user'
+import { modifyAvatar } from '@/api/mine'
 import { showToast, showDialog } from 'vant'
 import { useI18n } from 'vue-i18n'
 
@@ -115,6 +116,38 @@ const vipLevelDisplay = computed(() => {
   const level = userInfo.value.vipLevel || '0'
   return 'VIP' + level
 })
+
+// Avatar Selection
+const showAvatarSelector = ref(false)
+const selectedAvatar = ref('')
+const avatarList = Array.from({ length: 150 }, (_, i) => `${window.location.origin}/${i + 1}.png`)
+
+const handleAvatarClick = () => {
+  selectedAvatar.value = userInfo.value.logoNumber || `${window.location.origin}/1.png`
+  showAvatarSelector.value = true
+}
+
+const selectAvatar = (url: string) => {
+  selectedAvatar.value = url
+}
+
+const saveAvatar = async () => {
+  if (!selectedAvatar.value) return
+  
+  try {
+    const res = await modifyAvatar({ avatar: selectedAvatar.value })
+    if (res.code === '200') {
+      showToast(t('profile.updateSuccess'))
+      // Update local store
+      userStore.setInfo({ logoNumber: selectedAvatar.value })
+      showAvatarSelector.value = false
+    } else {
+      showToast(res.msg || t('profile.updateFailed'))
+    }
+  } catch (error) {
+    showToast(t('profile.updateFailed'))
+  }
+}
 </script>
 
 <template>
@@ -127,12 +160,15 @@ const vipLevelDisplay = computed(() => {
       <div class="relative z-10 p-5 pt-8 flex items-start justify-between">
         <div class="flex items-center gap-3">
           <!-- Avatar -->
-          <div class="w-14 h-14 rounded-full border border-gray-600 overflow-hidden bg-gray-800">
+          <div class="w-14 h-14 rounded-full border border-gray-600 overflow-hidden bg-gray-800 cursor-pointer relative group" @click="handleAvatarClick">
              <img
                :src="userInfo.logoNumber || 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png'"
                alt="Avatar"
                class="w-full h-full object-cover"
              />
+             <div class="absolute inset-0 bg-black/30 hidden group-hover:flex items-center justify-center">
+               <div class="i-carbon:edit text-white text-lg"></div>
+             </div>
           </div>
 
           <!-- User Info -->
@@ -295,6 +331,47 @@ const vipLevelDisplay = computed(() => {
         <p class="text-xs text-gray-500 mt-2">{{ t('profile.rechargeHint') }}</p>
       </div>
     </van-dialog>
+
+    <!-- Avatar Selector Popup -->
+    <van-popup 
+      v-model:show="showAvatarSelector" 
+      position="bottom" 
+      round 
+      class="h-[80vh] flex flex-col"
+    >
+      <!-- Header -->
+      <div class="bg-black text-white p-6 flex flex-col items-center sticky top-0 z-10">
+         <div class="absolute top-4 left-4" @click="showAvatarSelector = false">
+            <div class="i-carbon:arrow-left text-xl"></div>
+         </div>
+         
+         <div class="w-24 h-24 rounded-full border-2 border-gray-600 overflow-hidden mb-4 bg-gray-800">
+            <img :src="selectedAvatar" class="w-full h-full object-cover" />
+         </div>
+         
+         <button 
+           @click="saveAvatar"
+           class="bg-white text-black px-6 py-2 rounded-full font-bold text-sm hover:bg-gray-200 transition-colors"
+         >
+           Set Now
+         </button>
+      </div>
+      
+      <!-- Grid -->
+      <div class="flex-1 overflow-y-auto p-4 bg-white">
+         <div class="grid grid-cols-4 gap-4">
+            <div 
+              v-for="url in avatarList" 
+              :key="url" 
+              class="aspect-square rounded-full overflow-hidden border-2 cursor-pointer transition-all"
+              :class="selectedAvatar === url ? 'border-black scale-105' : 'border-transparent hover:border-gray-200'"
+              @click="selectAvatar(url)"
+            >
+               <img :src="url" loading="lazy" class="w-full h-full object-cover" />
+            </div>
+         </div>
+      </div>
+    </van-popup>
 
   </div>
 </template>

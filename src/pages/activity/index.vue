@@ -12,7 +12,7 @@ const missions = [
     title: 'SPECIAL MISSIONS',
     subTitle: 'กิจกรรมพิเศษ',
     desc: 'ลงทะเบียนเข้าร่วมกิจกรรมหลังสั่งซื้อ 3 บิล\nเมื่อทำรายการครบ 3 รายการ ติดต่อกันให้เสร็จ\nแล้ว รับโบนัสและเข้าร่วมจากกิจกรรม',
-    image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', // Fashion/Model grayscale style
+    image: 'https://08-tiki-img.s3.ap-southeast-1.amazonaws.com/image/20241125/a13c1a43e018393ad5fabddbee500568.jpg',
     target: 3,
   },
   {
@@ -20,7 +20,7 @@ const missions = [
     title: 'SPECIAL MISSIONS',
     subTitle: 'กิจกรรมพิเศษ',
     desc: 'ลงทะเบียนเข้าร่วมกิจกรรมหลังสั่งซื้อ 4 บิล\nเมื่อทำรายการครบ 4 รายการ ติดต่อกันให้เสร็จ\nแล้ว รับโบนัสและเข้าร่วมจากกิจกรรม',
-    image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: 'https://08-tiki-img.s3.ap-southeast-1.amazonaws.com/image/20241125/90d7b1a290ab844639eb05ae97941b16.jpg',
     target: 4,
   },
   {
@@ -28,7 +28,7 @@ const missions = [
     title: 'SPECIAL MISSIONS',
     subTitle: 'กิจกรรมพิเศษ',
     desc: 'ลงทะเบียนเข้าร่วมกิจกรรมหลังสั่งซื้อ 5 บิล\nเมื่อทำรายการครบ 5 รายการ ติดต่อกันให้เสร็จ\nแล้ว รับโบนัสและเข้าร่วมจากกิจกรรม',
-    image: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: 'https://08-tiki-img.s3.ap-southeast-1.amazonaws.com/image/20241125/b3fa10a5b28c1ee5bd08b6e870674bd5.jpg',
     target: 5,
   },
 ]
@@ -91,13 +91,10 @@ async function handleJoin() {
         >
 
         <!-- Sparkles/Overlay Effect -->
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
+        <!-- <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" /> -->
 
         <!-- Content Overlay -->
-        <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-6 text-white z-10">
-          <!-- Card 2 in image 2 has a special "Received Order" overlay, implementing generic style for now -->
-
-          <!-- Title Box -->
+        <!-- <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-6 text-white z-10">
           <div class="bg-white/90 backdrop-blur-sm px-6 py-4 rounded-xl shadow-lg mb-4 w-full max-w-[280px]">
             <h2 class="text-xl font-serif text-black font-bold tracking-wider mb-1">
               SPECIAL MISSIONS
@@ -107,11 +104,23 @@ async function handleJoin() {
             </div>
           </div>
 
-          <!-- Description -->
           <p class="text-xs text-gray-200 leading-relaxed max-w-[260px] whitespace-pre-line shadow-black drop-shadow-md">
             {{ mission.desc }}
           </p>
-        </div>
+        </div> -->
+      </div>
+
+      <!-- Extra Cards (Static from Image) -->
+      <div class="grid grid-cols-2 gap-4">
+         <div class="relative h-32 rounded-xl overflow-hidden bg-gray-200">
+            <img src="https://08-tiki-img.s3.ap-southeast-1.amazonaws.com/image/20241125/1fd3a6a10eaf5a2ca7f940ac0e92a74c.jpg" class="w-full h-full object-cover grayscale" />
+            <div class="absolute top-2 left-2 bg-white/80 px-2 py-0.5 rounded text-[10px] font-bold">nordstrom</div>
+         </div>
+         <div class="relative h-32 rounded-xl overflow-hidden bg-gray-200 flex flex-col items-center justify-center p-2 text-center bg-white">
+            <h3 class="font-bold text-sm">SPECIAL MISSIONS</h3>
+            <div class="text-xs text-gray-500">กิจกรรมพิเศษ</div>
+            <img src="https://08-tiki-img.s3.ap-southeast-1.amazonaws.com/image/20241125/1fd3a6a10eaf5a2ca7f940ac0e92a74c.jpg" class="absolute inset-0 w-full h-full object-cover opacity-20 grayscale" />
+         </div>
       </div>
     </div>
 

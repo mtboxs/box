@@ -1,24 +1,19 @@
-<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
-    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#FFB347"/>
-      <stop offset="50%" style="stop-color:#FF9933"/>
-      <stop offset="100%" style="stop-color:#FF6600"/>
+    <linearGradient id="mk-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF4B2B" />
+      <stop offset="100%" stop-color="#FF416C" />
     </linearGradient>
   </defs>
-
-  <!-- Shield shape -->
-  <path d="M16 2 L28 7 L28 15 C28 22 23 28 16 30 C9 28 4 22 4 15 L4 7 Z"
-        fill="url(#shieldGrad)" />
-
-  <!-- Inner shield -->
-  <path d="M16 5 L25 9 L25 15 C25 20 21 25 16 27 C11 25 7 20 7 15 L7 9 Z"
-        fill="#FFF9F5" />
-
-  <!-- Simplified ₹ symbol -->
-  <g fill="#FF6600">
-    <rect x="10" y="10" width="12" height="2" rx="0.5"/>
-    <rect x="10" y="14" width="12" height="2" rx="0.5"/>
-    <path d="M12 16 L12 19 L16 24 L18 24 L14 19 L14 16 Z"/>
+  
+  <rect width="512" height="512" rx="100" fill="url(#mk-gradient)" />
+  
+  <g transform="translate(60, 100)" fill="none" stroke="#FFFFFF" stroke-width="40" stroke-linecap="round" stroke-linejoin="round">
+    <!-- M -->
+    <path d="M40 312V100l80 120 80-120v212" />
+    
+    <!-- K -->
+    <path d="M260 100v212" />
+    <path d="M380 100L260 206l120 106" />
   </g>
 </svg>

@@ -1,7 +1,7 @@
 {
   "app": {
-    "name": "BitCent",
-    "description": "Secure Digital Payment Platform"
+    "name": "MK",
+    "description": "Premium Cross-Border Platform"
   },
   "navbar": {
     "Home": "Home",
@@ -189,7 +189,9 @@
     "saveSuccess": "Saved successfully",
     "bound": "Bound",
     "confirmSave": "Confirm to save bank card information?",
-    "confirmUpdate": "Confirm to update bank card information?"
+    "confirmUpdate": "Confirm to update bank card information?",
+    "setWithdrawPwdFirst": "Please set withdraw password first",
+    "goToSet": "Go to Set"
   },
   "changePwd": {
     "title": "Change Password",

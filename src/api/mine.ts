@@ -250,3 +250,35 @@ export function saveBankInfo(data: BankInfoSaveRequest): Promise<ApiResponse<voi
     headers: { 'Content-Type': 'application/json' },
   })
 }
+
+// --- Legacy/Placeholder Functions for Build Compatibility ---
+
+export function getDailyBuyReward(): Promise<ApiResponse<any>> {
+  return Promise.resolve({ code: '200', data: {}, msg: 'Success' })
+}
+
+export function getLinkUpiReward(): Promise<ApiResponse<any>> {
+  return Promise.resolve({ code: '200', data: {}, msg: 'Success' })
+}
+
+export function getNewbieReward(): Promise<ApiResponse<any>> {
+  return Promise.resolve({ code: '200', data: {}, msg: 'Success' })
+}
+
+export function updatePassword(data: any): Promise<ApiResponse<void>> {
+  return modifyLoginPassword(data)
+}
+
+export interface DailyBuyInrRewardInfo {
+  [key: string]: any
+}
+export interface LinkUpiRewardInfo {
+  [key: string]: any
+}
+export interface NewbieRewardInfo {
+  [key: string]: any
+}
+
+export function updateSellLimit(_data: any): Promise<ApiResponse<void>> {
+  return Promise.resolve({ code: '200', data: undefined, msg: 'Success' })
+}

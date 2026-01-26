@@ -129,7 +129,8 @@ const goBack = () => {
           <div 
             v-for="item in list" 
             :key="item.id" 
-            class="bg-white rounded-xl p-3 flex gap-3 shadow-lg relative overflow-hidden"
+            class="bg-white rounded-xl p-3 flex gap-3 shadow-lg relative overflow-hidden active:bg-gray-50 transition-colors cursor-pointer"
+            @click="router.push(`/product/${item.id}`)"
           >
             <!-- Product Image -->
             <div class="w-28 h-28 bg-gray-50 rounded-lg flex-shrink-0 relative overflow-hidden">
@@ -170,7 +171,7 @@ const goBack = () => {
             <!-- Share/Action Button (Absolute positioned bottom-right or flex) -->
             <div class="absolute bottom-3 right-3">
                <button 
-                 @click.stop="handleBuy(item)"
+                 @click.stop="router.push(`/product/${item.id}`)"
                  class="w-8 h-8 bg-black rounded-lg flex items-center justify-center active:scale-95 transition-transform"
                >
                   <div class="i-carbon:arrow-up-right text-white text-sm font-bold"></div>

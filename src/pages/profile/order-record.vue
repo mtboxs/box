@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { getAwaitPayOrders, getCompletedOrders, getRepurchaseOrders } from '@/api/mine'
 import type { ProductOrderResponse } from '@/api/mine'
 import { showToast } from 'vant'
@@ -8,7 +8,7 @@ import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 const router = useRouter()
-const route = useRoute()
+// const route = useRoute()
 
 // Tabs: 0 = I initiated, 1 = Participating, 2 = Completed
 const activeTab = ref(0)
@@ -66,7 +66,7 @@ const onTabChange = () => {
 
 const goBack = () => router.back()
 
-const handleBuy = (item: ProductOrderResponse) => {
+const handleBuy = (_item: ProductOrderResponse) => {
   // Logic for 'Buy' button action
   showToast('Proceed to payment...')
 }
