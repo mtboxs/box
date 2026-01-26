@@ -37,6 +37,13 @@ declare module 'vue-router/auto-routes' {
       { all: ParamValue<false> },
       | never
     >,
+    'Activity': RouteRecordInfo<
+      'Activity',
+      '/activity',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     'Buy': RouteRecordInfo<
       'Buy',
       '/buy',
@@ -131,6 +138,62 @@ declare module 'vue-router/auto-routes' {
     'Profile': RouteRecordInfo<
       'Profile',
       '/profile',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    'BankCard': RouteRecordInfo<
+      'BankCard',
+      '/profile/bank-card',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/profile/change-password': RouteRecordInfo<
+      '/profile/change-password',
+      '/profile/change-password',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    'Chat': RouteRecordInfo<
+      'Chat',
+      '/profile/chat',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    'Collection': RouteRecordInfo<
+      'Collection',
+      '/profile/collection',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/profile/fund-details': RouteRecordInfo<
+      '/profile/fund-details',
+      '/profile/fund-details',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/profile/order-record': RouteRecordInfo<
+      '/profile/order-record',
+      '/profile/order-record',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/profile/recharge-record': RouteRecordInfo<
+      '/profile/recharge-record',
+      '/profile/recharge-record',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/profile/withdraw-record': RouteRecordInfo<
+      '/profile/withdraw-record',
+      '/profile/withdraw-record',
       Record<never, never>,
       Record<never, never>,
       | never
@@ -286,6 +349,12 @@ declare module 'vue-router/auto-routes' {
       views:
         | never
     }
+    'src/pages/activity/index.vue': {
+      routes:
+        | 'Activity'
+      views:
+        | never
+    }
     'src/pages/buy/index.vue': {
       routes:
         | 'Buy'
@@ -367,6 +436,54 @@ declare module 'vue-router/auto-routes' {
     'src/pages/profile/index.vue': {
       routes:
         | 'Profile'
+      views:
+        | never
+    }
+    'src/pages/profile/bank-card.vue': {
+      routes:
+        | 'BankCard'
+      views:
+        | never
+    }
+    'src/pages/profile/change-password.vue': {
+      routes:
+        | '/profile/change-password'
+      views:
+        | never
+    }
+    'src/pages/profile/chat.vue': {
+      routes:
+        | 'Chat'
+      views:
+        | never
+    }
+    'src/pages/profile/collection.vue': {
+      routes:
+        | 'Collection'
+      views:
+        | never
+    }
+    'src/pages/profile/fund-details.vue': {
+      routes:
+        | '/profile/fund-details'
+      views:
+        | never
+    }
+    'src/pages/profile/order-record.vue': {
+      routes:
+        | '/profile/order-record'
+      views:
+        | never
+    }
+    'src/pages/profile/recharge-record.vue': {
+      routes:
+        | '/profile/recharge-record'
+      views:
+        | never
+    }
+    'src/pages/profile/withdraw-record.vue': {
+      routes:
+        | '/profile/withdraw-record'
       views:
         | never
     }

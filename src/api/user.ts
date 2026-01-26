@@ -6,66 +6,80 @@ export interface ApiResponse<T> {
   msg: string
 }
 
-export interface LoginData {
-  username: string
-  password: string
+export interface MbrLoginRequest {
+  password?: string
+  phone?: string
 }
 
-export interface RegisterData {
+export interface MbeRegisterRequest {
   inviteCode: string
-  password: string
+  loginPassword: string
+  nickname: string
   phone: string
 }
 
-export interface MbrContext {
-  agentUsername?: string
-  bal?: number
-  banned?: boolean
-  frozenBal?: number
-  inPayAmount?: number
-  inviteCode?: string
-  isFinishNewbieActivity?: boolean
-  memberType?: string
-  minSellToken?: number
-  operateType?: string
-  parentUsername?: string
-  payerRewardFixed?: number
-  payerRewardRatio?: number
-  root?: boolean
-  trc20Address?: string
-  uid?: string
-  username?: string
+export interface MemberContext {
+  account: string
+  actualName: string
+  balance: number
+  bankCardNo: string
+  bankName: string
+  banned: boolean
+  currToken: string
+  id: number
+  integral: number
+  inviteCode: string
+  logoNumber: string
+  mbrType: string // 0,1,2
+  nickname: string
+  phone: string
+  root: boolean
+  status: string // 0,1
+  todayEarnings: number
+  totalRevenue: number
+  vipLevel: string // 0..8
+  // Aliases for compatibility if needed, but better to use new fields
+  username?: string // mapped to account or nickname
+  uid?: string // mapped to id
+  bal?: number // mapped to balance
 }
 
-export function login(data: LoginData): Promise<ApiResponse<string>> {
+/**
+ * Login
+ */
+export function login(data: MbrLoginRequest): Promise<ApiResponse<string>> {
   return request.post('/pub/login.do', data, {
     headers: { 'Content-Type': 'application/json' },
   })
 }
 
-export function register(data: RegisterData): Promise<ApiResponse<null>> {
+/**
+ * Register
+ */
+export function register(data: MbeRegisterRequest): Promise<ApiResponse<string>> {
   return request.post('/pub/register.do', data, {
     headers: { 'Content-Type': 'application/json' },
   })
 }
 
-export function getUserInfo(): Promise<ApiResponse<MbrContext>> {
+/**
+ * Get User Info
+ */
+export function getUserInfo(): Promise<ApiResponse<MemberContext>> {
+  // Assuming /pub/info.do is correct based on user input, 
+  // previously it was /pub/userinfo.do. User explicitly said /pub/info.do
   const form = new URLSearchParams()
-  return request.post('/pub/userinfo.do', form, {
+  return request.post('/pub/info.do', form, {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
   })
 }
 
-export function logout(): Promise<ApiResponse<null>> {
+/**
+ * Logout
+ */
+export function logout(): Promise<ApiResponse<void>> {
   const form = new URLSearchParams()
   return request.post('/pub/logout.do', form, {
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  })
-}
-
-export function sendOtp(): Promise<ApiResponse<any>> {
-  const form = new URLSearchParams()
-  return request.post('/pub/sendOtp.do', form, {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
   })
 }

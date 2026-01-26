@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-import type { FieldRule } from 'vant'
-import { showNotify } from 'vant'
 import { useUserStore } from '@/stores'
+import { showToast } from 'vant'
+import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -10,176 +11,185 @@ const userStore = useUserStore()
 const loading = ref(false)
 
 const postData = reactive({
-  inviteCode: '',
   phone: '',
-  password: '',
+  nickname: '',
+  loginPassword: '', // Mapped to 'password' in UI
   confirmPassword: '',
+  inviteCode: '',
 })
 
-const validatorPassword = (val: string) => val === postData.password
-
-const rules = reactive({
-  inviteCode: [
-    { required: true, message: t('register.pleaseEnterInviteCode') },
-  ],
-  phone: [
-    { required: true, message: t('register.pleaseEnterPhone') },
-  ],
-  password: [
-    { required: true, message: t('register.pleaseEnterPassword') },
-  ],
+const rules = {
+  phone: [{ required: true, message: () => t('register.enterPhone') }],
+  nickname: [{ required: true, message: () => t('register.enterNickname') }],
+  loginPassword: [{ required: true, message: () => t('register.enterPassword') }],
   confirmPassword: [
-    { required: true, message: t('register.pleaseEnterConfirmPassword') },
-    { required: true, validator: validatorPassword, message: t('register.passwordsDoNotMatch') },
-  ] as FieldRule[],
-})
-
-const showPwd = ref(false)
-const showConfirmPwd = ref(false)
-function togglePwd() {
-  showPwd.value = !showPwd.value
-}
-function toggleConfirmPwd() {
-  showConfirmPwd.value = !showConfirmPwd.value
+    { required: true, message: () => t('register.enterConfirmPassword') },
+    {
+      validator: (val: string) => val === postData.loginPassword,
+      message: () => t('register.passwordMismatch'),
+    },
+  ],
+  inviteCode: [{ required: true, message: () => t('register.enterInviteCode') }],
 }
 
-async function register() {
+async function handleRegister() {
+  if (
+    !postData.phone ||
+    !postData.nickname ||
+    !postData.loginPassword ||
+    !postData.confirmPassword ||
+    !postData.inviteCode
+  ) {
+    return
+  }
+  
   try {
     loading.value = true
-
     const res = await userStore.register(postData)
     if (res && res.code === '200') {
-      showNotify({ type: 'success', message: t('register.registerSuccess') })
-      router.push({ name: 'Login' })
+       showToast(t('register.success'))
+       router.push({ name: 'Login' })
+    } else {
+       showToast(res?.msg || t('register.failed'))
     }
-  }
-  finally {
+  } catch (error) {
+    showToast(t('register.failed'))
+  } finally {
     loading.value = false
   }
 }
 </script>
 
 <template>
-  <div class="bg-[#FFF9F5] flex flex-col min-h-screen">
-    <div class="px-6 py-8 flex flex-1 flex-col justify-center">
-      <!-- Header -->
-      <div class="mb-6 text-center">
-        <div class="mx-auto mb-4 rounded-full bg-[#FF9933] flex h-20 w-20 shadow-lg items-center justify-center">
-          <div class="i-carbon:user-avatar text-3xl text-white" />
+  <div class="min-h-screen bg-[#0E444F] flex items-center justify-center p-4">
+    <div class="w-full max-w-sm bg-white rounded-3xl shadow-2xl overflow-hidden relative pb-10">
+      
+      <!-- Top Mascot & Logo -->
+      <div class="pt-8 pb-4 text-center">
+        <!-- Mascot Circle -->
+        <div class="w-24 h-24 mx-auto rounded-full bg-[#A8E6F0] flex items-end justify-center overflow-hidden mb-3 border-4 border-white shadow-sm relative z-10">
+           <!-- Placeholder for Bird Mascot -->
+           <img src="https://www.prestashop.com/sites/default/files/wysiwyg/preston-graduate.png" class="w-20 h-20 object-contain -mb-1" />
         </div>
-        <h1 class="text-2xl text-gray-900 font-700">
-          Create Account
+        
+        <!-- Brand Text -->
+        <h1 class="text-3xl font-bold tracking-tight">
+          <span class="text-[#1E1E50]">Presta</span><span class="text-[#E91E63]">Shop</span>
         </h1>
-        <p class="text-sm text-gray-500 mt-1">
-          Join us and start earning
-        </p>
       </div>
 
-      <van-form :model="postData" :rules="rules" validate-trigger="onSubmit" @submit="register">
-        <div class="space-y-3">
-          <div class="rounded-xl bg-white shadow-sm overflow-hidden">
-            <van-field
-              v-model.trim="postData.inviteCode"
-              :rules="rules.inviteCode"
-              name="inviteCode"
-              :placeholder="$t('register.inviteCode')"
-              class="!py-3"
-            >
-              <template #left-icon>
-                <div class="i-carbon:gift text-lg text-[#FF9933] mr-2" />
-              </template>
-            </van-field>
-          </div>
+      <!-- Register Form Area -->
+      <div class="px-8">
+        <h2 class="text-2xl font-bold text-black mb-6">{{ t('register.title') }}</h2>
 
-          <div class="rounded-xl bg-white shadow-sm overflow-hidden">
+        <van-form @submit="handleRegister">
+          
+          <!-- Phone -->
+          <div class="mb-4">
+            <label class="block text-xs text-gray-400 mb-1 ml-1">{{ t('register.phone') }}</label>
             <van-field
-              v-model.trim="postData.phone"
-              :rules="rules.phone"
+              v-model="postData.phone"
               name="phone"
-              :placeholder="$t('register.phone')"
-              clearable
-              clear-trigger="always"
-              class="!py-3"
-            >
-              <template #left-icon>
-                <div class="i-carbon:phone text-lg text-[#FF9933] mr-2" />
-              </template>
-            </van-field>
+              :placeholder="t('register.enterPhone')"
+              :rules="rules.phone"
+              class="!bg-[#F5F5F5] !rounded-lg !py-3 !px-4"
+              :border="false"
+            />
           </div>
 
-          <div class="rounded-xl bg-white shadow-sm overflow-hidden">
+          <!-- Nickname -->
+          <div class="mb-4">
+            <label class="block text-xs text-gray-400 mb-1 ml-1">{{ t('register.nickname') }}</label>
             <van-field
-              v-model.trim="postData.password"
-              :type="showPwd ? 'text' : 'password'"
-              :rules="rules.password"
-              name="password"
-              :placeholder="$t('register.password')"
-              clearable
-              clear-trigger="always"
-              class="!py-3"
-            >
-              <template #left-icon>
-                <div class="i-carbon:locked text-lg text-[#FF9933] mr-2" />
-              </template>
-              <template #right-icon>
-                <div
-                  :class="showPwd ? 'i-carbon:view' : 'i-carbon:view-off'"
-                  class="text-lg text-gray-400"
-                  @click="togglePwd"
-                />
-              </template>
-            </van-field>
+              v-model="postData.nickname"
+              name="nickname"
+              :placeholder="t('register.enterNickname')"
+              :rules="rules.nickname"
+              class="!bg-[#F5F5F5] !rounded-lg !py-3 !px-4"
+              :border="false"
+            />
           </div>
 
-          <div class="rounded-xl bg-white shadow-sm overflow-hidden">
+          <!-- Password -->
+          <div class="mb-4">
+            <label class="block text-xs text-gray-400 mb-1 ml-1">{{ t('register.password') }}</label>
             <van-field
-              v-model.trim="postData.confirmPassword"
-              :type="showConfirmPwd ? 'text' : 'password'"
-              :rules="rules.confirmPassword"
+              v-model="postData.loginPassword"
+              type="password"
+              name="loginPassword"
+              :placeholder="t('register.enterPassword')"
+              :rules="rules.loginPassword"
+              class="!bg-[#F5F5F5] !rounded-lg !py-3 !px-4"
+              :border="false"
+            />
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="mb-4">
+            <label class="block text-xs text-gray-400 mb-1 ml-1">{{ t('register.confirmPassword') }}</label>
+            <van-field
+              v-model="postData.confirmPassword"
+              type="password"
               name="confirmPassword"
-              :placeholder="$t('register.confirmPassword')"
-              clearable
-              clear-trigger="always"
-              class="!py-3"
-            >
-              <template #left-icon>
-                <div class="i-carbon:password text-lg text-[#FF9933] mr-2" />
-              </template>
-              <template #right-icon>
-                <div
-                  :class="showConfirmPwd ? 'i-carbon:view' : 'i-carbon:view-off'"
-                  class="text-lg text-gray-400"
-                  @click="toggleConfirmPwd"
-                />
-              </template>
-            </van-field>
+              :placeholder="t('register.enterConfirmPassword')"
+              :rules="rules.confirmPassword"
+              class="!bg-[#F5F5F5] !rounded-lg !py-3 !px-4"
+              :border="false"
+            />
           </div>
 
+          <!-- Invitation Code -->
+          <div class="mb-8">
+            <label class="block text-xs text-gray-400 mb-1 ml-1">{{ t('register.inviteCode') }}</label>
+            <van-field
+              v-model="postData.inviteCode"
+              name="inviteCode"
+              :placeholder="t('register.enterInviteCode')"
+              :rules="rules.inviteCode"
+              class="!bg-[#F5F5F5] !rounded-lg !py-3 !px-4"
+              :border="false"
+            />
+          </div>
+
+          <!-- Submit Button -->
           <button
             type="submit"
-            class="text-base text-white font-600 mt-4 py-4 rounded-xl bg-[#FF9933] w-full shadow-sm active:bg-[#E68A2E] disabled:opacity-50"
+            class="w-full bg-black text-white font-bold py-3.5 rounded-full shadow-lg active:scale-95 transition-transform"
             :disabled="loading"
           >
-            <span v-if="loading">Creating...</span>
-            <span v-else>{{ $t('register.confirm') }}</span>
+            <span v-if="loading">{{ t('register.creating') }}</span>
+            <span v-else>{{ t('register.registerBtn') }}</span>
           </button>
-        </div>
-      </van-form>
+        </van-form>
 
-      <div class="mt-6 text-center">
-        <p class="text-sm text-gray-500">
-          Already have an account?
-        </p>
-        <router-link :to="{ name: 'Login' }" class="text-base text-[#FF9933] font-600 mt-1 inline-block">
-          {{ $t('register.backToLogin') }}
-        </router-link>
+        <!-- Footer Link -->
+        <div class="text-center mt-6 text-sm">
+          <span class="text-gray-400">{{ t('register.hasAccount') }} </span>
+          <router-link :to="{ name: 'Login' }" class="text-red-500 font-bold hover:underline">
+            {{ t('register.login') }}
+          </router-link>
+        </div>
       </div>
+
     </div>
   </div>
 </template>
 
+<style scoped>
+:deep(.van-field__control) {
+  color: #333;
+}
+:deep(.van-cell) {
+  padding: 0;
+  background: transparent;
+}
+</style>
+
 <route lang="json5">
 {
-  name: 'Register'
+  name: 'Register',
+  meta: {
+    layout: 'blank'
+  }
 }
 </route>

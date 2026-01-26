@@ -6,101 +6,247 @@ export interface ApiResponse<T> {
   msg: string
 }
 
-export interface RewardItem {
-  conditionAmt: number
-  conditionVal: number
-  done: boolean
-  frontUrl: string
-  rewardAmt: number
-  settleAmt: number
-  sortNo: number
-  title: string
+export interface PageRequest {
+  page?: number
+  pageSize?: number
 }
 
-export interface DailyBuyInrRewardInfo {
-  finishedAmount: number
-  items: RewardItem[]
-  receivedReward: number
-  totalAmount: number
-  yesterdayReward: number
+export interface PageResponse<T> {
+  list: T[]
+  page: number
+  pageSize: number
+  total: number
+  totalPage: number
 }
 
-export interface LinkUpiRewardInfo {
-  doneCnt: number
-  items: RewardItem[]
-  receivedBonus: number
-  totalBonus: number
+// Order Response Object
+export interface ProductOrderResponse {
+  id: number
+  mbrId: number
+  orderNo: string
+  pdNo: string
+  productName: string
+  productDesc: string
+  pic1Url: string
+  pic2Url: string
+  pic3Url: string
+  labelPrice: number
+  orderPrice: number
+  commission: number
+  pdStatus: string // OrderPdStatus: 0,1,2,3,4
+  specialOffer: boolean
+  vipLevel: string
+  phone: string
+  disabled: boolean
+  createBy: string
+  createAt: string
+  updateAt: string
 }
 
-export interface NewbieRewardInfo {
-  done: boolean
-  items: RewardItem[]
-  totalBonus: number
-}
-
-export interface TodayProfitData {
-  eventReward: number
-  teamProfit: number
-  tradeProfit: number
-}
-
-export interface TokenDetailData {
-  availableAmount: number
-  inSellAmount: number
-}
-
-export interface MemberUpdPasswordRequest {
-  newPassword: string
-  otp: string
-}
-
-export interface SellLimitUpdRequest {
+// Fund Detail (Assets Flow)
+export interface MbrAssetsFlw {
+  id: number
+  mbrId: number
+  flwNo: string
+  type: string // AssetsFlwType: 0..10
   amount: number
+  beforeAmt: number
+  afterAmt: number
+  relatedId: number
+  relatedNo: string
+  remark: string
+  createBy: string
+  createAt: string
 }
 
-export function getDailyBuyReward(): Promise<ApiResponse<DailyBuyInrRewardInfo>> {
-  const form = new URLSearchParams()
-  return request.post('/mine/dailyBuyReward.do', form, {
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  })
+// Chat Message
+export interface ChatMsgLog {
+  id: number
+  chatId: number
+  ownerId: number
+  content: string
+  imageFlg: boolean
+  customerFlg: boolean
+  disabled: boolean
+  createAt: string
 }
 
-export function getLinkUpiReward(): Promise<ApiResponse<LinkUpiRewardInfo>> {
-  const form = new URLSearchParams()
-  return request.post('/mine/linkUpiReward.do', form, {
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  })
+// Recharge Record
+export interface MbrRechargeRecord {
+  id: number
+  mbrId: number
+  recNo: string
+  amount: number
+  status: string // RecordStatus: 0,1,2
+  memo: string
+  disabled: boolean
+  createBy: string
+  createAt: string
+  updateAt: string
 }
 
-export function getNewbieReward(): Promise<ApiResponse<NewbieRewardInfo>> {
-  const form = new URLSearchParams()
-  return request.post('/mine/newbieReward.do', form, {
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  })
+// Withdraw Record
+export interface MbrWithdrawRecord {
+  id: number
+  mbrId: number
+  recNo: string
+  amount: number
+  status: string // RecordStatus: 0,1,2
+  memo: string
+  disabled: boolean
+  createBy: string
+  createAt: string
+  updateAt: string
 }
 
-export function getTodayProfit(): Promise<ApiResponse<TodayProfitData>> {
-  const form = new URLSearchParams()
-  return request.post('/mine/todayProfit.do', form, {
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  })
+// Requests
+export interface AvatarUpdRequest {
+  avatar: string
 }
 
-export function getTokenDetail(): Promise<ApiResponse<TokenDetailData>> {
-  const form = new URLSearchParams()
-  return request.post('/mine/tokenDetail.do', form, {
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  })
+export interface PasswordUpdRequest {
+  newPassword: string
+  oldPassword?: string
 }
 
-export function updatePassword(data: MemberUpdPasswordRequest): Promise<ApiResponse<void>> {
-  return request.post('/mine/updPassword.do', { request: data }, {
+export interface BankInfoSaveRequest {
+  actualName: string
+  bankCardNo: string
+  bankName: string
+  withdrawPassword: string
+}
+
+export interface MsgContentRequest {
+  chatId: number
+  content: string
+}
+
+export interface BaseUpdateRequest {
+  id: number
+}
+
+/**
+ * Get Await Pay Orders (待付款)
+ */
+export function getAwaitPayOrders(data: PageRequest): Promise<ApiResponse<PageResponse<ProductOrderResponse>>> {
+  return request.post('/mine/awaitPayOrder.do', data, {
     headers: { 'Content-Type': 'application/json' },
   })
 }
 
-export function updateSellLimit(data: SellLimitUpdRequest): Promise<ApiResponse<void>> {
-  return request.post('/mine/updSellLimit.do', data, {
+/**
+ * Get Completed Orders (已完成)
+ */
+export function getCompletedOrders(data: PageRequest): Promise<ApiResponse<PageResponse<ProductOrderResponse>>> {
+  return request.post('/mine/completedOrder.do', data, {
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
+/**
+ * Get Fund Details (资金明细)
+ */
+export function getFundDetails(data: PageRequest): Promise<ApiResponse<PageResponse<MbrAssetsFlw>>> {
+  return request.post('/mine/fundDetails.do', data, {
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
+/**
+ * Get Chat Messages (聊天记录)
+ */
+export function getMessages(data: BaseUpdateRequest): Promise<ApiResponse<ChatMsgLog[]>> {
+  return request.post('/mine/getMessage.do', data, {
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
+/**
+ * Send Message (发送消息)
+ */
+export function sendMessage(data: MsgContentRequest): Promise<ApiResponse<void>> {
+  return request.post('/mine/sendMessage.do', data, {
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
+/**
+ * Modify Avatar (修改头像)
+ */
+export function modifyAvatar(data: AvatarUpdRequest): Promise<ApiResponse<void>> {
+  return request.post('/mine/modifyAvatar.do', data, {
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
+/**
+ * Modify Login Password (修改登录密码)
+ */
+export function modifyLoginPassword(data: PasswordUpdRequest): Promise<ApiResponse<void>> {
+  return request.post('/mine/modifyLoginPassword.do', data, {
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
+/**
+ * Modify Withdraw Password (修改提现密码)
+ */
+export function modifyWithdrawPassword(data: PasswordUpdRequest): Promise<ApiResponse<void>> {
+  return request.post('/mine/modifyWithdrawPassword.do', data, {
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
+/**
+ * Get Recharge Records (充值记录)
+ */
+export function getRechargeRecords(data: PageRequest): Promise<ApiResponse<PageResponse<MbrRechargeRecord>>> {
+  return request.post('/mine/rechargeRecord.do', data, {
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
+/**
+ * Get Withdraw Records (提现记录)
+ */
+export function getWithdrawRecords(data: PageRequest): Promise<ApiResponse<PageResponse<MbrWithdrawRecord>>> {
+  return request.post('/mine/withdrawRecord.do', data, {
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
+/**
+ * Get Repurchase Orders (待回购订单)
+ */
+export function getRepurchaseOrders(data: PageRequest): Promise<ApiResponse<PageResponse<ProductOrderResponse>>> {
+  return request.post('/mine/repurchaseOrder.do', data, {
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
+/**
+ * Get Repurchased Orders (已回购订单)
+ */
+export function getRepurchasedOrders(data: PageRequest): Promise<ApiResponse<PageResponse<ProductOrderResponse>>> {
+  return request.post('/mine/repurchasedOrder.do', data, {
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
+/**
+ * Submit Repurchase (申请回购)
+ */
+export function submitRepurchase(data: BaseUpdateRequest): Promise<ApiResponse<void>> {
+  return request.post('/mine/repurchaseSubmit.do', data, {
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
+/**
+ * Save Bank Info (修改银行卡信息)
+ */
+export function saveBankInfo(data: BankInfoSaveRequest): Promise<ApiResponse<void>> {
+  return request.post('/mine/saveBankInfo.do', data, {
     headers: { 'Content-Type': 'application/json' },
   })
 }

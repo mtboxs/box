@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import type { ProductInfo } from './home'
 
 export interface ApiResponse<T> {
   code: string
@@ -7,6 +8,7 @@ export interface ApiResponse<T> {
 }
 
 export interface PageRequest {
+  brandId?: number
   page?: number
   pageSize?: number
 }
@@ -18,6 +20,34 @@ export interface PageResponse<T> {
   total: number
   totalPage: number
 }
+
+// Re-export ProductInfo for convenience
+export type { ProductInfo }
+
+// Buy Product Request
+export interface BuyProductRequest {
+  id: number
+}
+
+/**
+ * Get Product List
+ */
+export function getProductList(data: PageRequest): Promise<ApiResponse<PageResponse<ProductInfo>>> {
+  return request.post('/product/list.do', data, {
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
+/**
+ * Buy Product
+ */
+export function buyProduct(data: BuyProductRequest): Promise<ApiResponse<void>> {
+  return request.post('/product/buy.do', data, {
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
+// --- Legacy / Other Interfaces (kept to avoid breaking other imports if any) ---
 
 // 出售首页统计
 export interface SellHomeInfo {

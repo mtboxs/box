@@ -3,7 +3,6 @@
     "name": "BitCent",
     "description": "Secure Digital Payment Platform"
   },
-
   "navbar": {
     "Home": "Home",
     "Buy": "Buy",
@@ -37,612 +36,192 @@
     "Settings": "Settings",
     "404": "Page Not Found"
   },
-
   "tabbar": {
     "home": "Home",
-    "buy": "Buy",
+    "buy": "More",
+    "activity": "Activity",
+    "profile": "Me",
     "upi": "UPI",
     "sell": "Sell",
     "team": "Team",
     "mine": "Mine"
   },
-
   "home": {
     "darkMode": "🌗 Dark Mode",
     "language": "📚 Language",
     "settings": "Settings",
-    "examples": "Examples"
+    "examples": "Examples",
+    "crossBorderPartner": "Cross-Border Platform Partner",
+    "product": "Product",
+    "newArrival": "New Arrival",
+    "bestSeller": "Best Seller",
+    "grabOrder": "Grab Order",
+    "specialOffer": "Special offer",
+    "commission": "Commission",
+    "officialStore": "Official Store",
+    "notice": "Latest Notice"
   },
-
+  "activity": {
+    "title": "Activity",
+    "specialMissions": "SPECIAL MISSIONS",
+    "mission1Sub": "Special Activity",
+    "mission1Desc": "Register to join the activity after ordering 3 bills\nWhen completing 3 items consecutively\nReceive bonus and join activity",
+    "mission2Sub": "Special Activity",
+    "mission2Desc": "Register to join the activity after ordering 4 bills\nWhen completing 4 items consecutively\nReceive bonus and join activity",
+    "mission3Sub": "Special Activity",
+    "mission3Desc": "Register to join the activity after ordering 5 bills\nWhen completing 5 items consecutively\nReceive bonus and join activity",
+    "processing": "Processing...",
+    "success": "Success",
+    "failed": "Failed",
+    "networkError": "Network Error",
+    "ruleTitle": "Activity Rules",
+    "rule1": "All promotional products are randomly assigned by the system. Once started, they cannot be cancelled and must be completed.",
+    "rule2": "If you want to join other activities within budget, please contact customer service. There are chances to win extra orders and bonuses."
+  },
   "profile": {
     "login": "Login",
+    "logout": "Sign Out",
     "settings": "Settings",
     "docs": "Docs",
     "reward": "Reward",
     "id": "ID",
-    "iToken": "IToken",
-    "iTokenDetail": "IToken Detail",
-    "available": "Available",
-    "todayProfit": "Today Profit",
-    "todayProfitDetail": "Today Profit Detail",
-    "setOrderSize": "Set order size",
-    "sellHistory": "Sell History",
-    "buyHistory": "Buy History",
-    "eventCenter": "Event Center",
-    "tutorial": "Tutorial",
-    "commonQuestions": "Common Questions",
-    "officialService": "OFFICIAL CHANNEL",
+    "vipLevel": "VIP Level",
+    "shopCode": "Shop Code",
+    "creditScore": "Credit Score",
     "inviteCode": "Invite Code",
-    "trc20Address": "TRC20 Address",
-    "copy": "Copy",
-    "copied": "Copied",
-    "close": "Close",
-    "inSellAmount": "In-sell Amount",
-    "orderSizeTip": "Your available token quantity must be greater than the min set order size, otherwise it will not be sold",
-    "profit": {
-      "trade": "Trade",
-      "event": "Event",
-      "team": "Team",
-      "tradeProfit": "Trade Profit",
-      "teamProfit": "Team Profit",
-      "eventReward": "Event Reward"
-    },
-    "dailyBuyReward": "Daily Buy Reward",
-    "linkUpiReward": "Link UPI Reward",
-    "newbieReward": "Newbie Reward",
-    "rewards": "Rewards",
-    "assets": "Assets",
-    "total": "Total",
-    "received": "Received",
-    "finished": "Finished",
-    "yesterday": "Yesterday",
-    "copyLink": "Copy Link",
-    "openLink": "Open Link",
-    "done": "Done",
+    "totalBalance": "Total Balance",
+    "todayIncome": "Today Income",
+    "totalIncome": "Total Income",
+    "recharge": "Top Up",
+    "withdraw": "Withdraw",
+    "rechargeRecord": "Top Up Record",
+    "withdrawRecord": "Withdraw Record",
+    "details": "Details",
+    "myOrders": "My Orders",
+    "joinBuy": "Join Buy",
+    "sellBack": "Sell Back",
+    "collection": "Collection",
+    "bankCard": "Bank Card",
+    "changePassword": "Change Password",
+    "selectWithdrawMethod": "Please select withdraw method",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "noData": "No data",
+    "save": "Save",
+    "update": "Update",
+    "tips": "Tips",
+    "bindBankCardFirst": "Please bind your bank card before withdrawal",
+    "goToBind": "Go to Bind",
+    "notBound": "Not Bound",
+    "amount": "Amount",
+    "enterAmount": "Please enter amount",
+    "rechargeSubmitted": "Recharge request submitted",
+    "rechargeHint": "Please contact customer service to recharge",
+    "withdrawFeatureComing": "Withdraw feature coming soon",
+    "confirmLogout": "Confirm Logout",
+    "confirmLogoutMsg": "Are you sure you want to logout?"
+  },
+  "login": {
+    "title": "Login please",
+    "phone": "Phone number",
+    "password": "Password",
+    "enterPhone": "Please enter phone number",
+    "enterPassword": "Please enter password",
+    "loginBtn": "Log in",
+    "loading": "Loading...",
+    "noAccount": "No account?",
+    "signup": "Sign up now",
+    "loginFailed": "Login failed"
+  },
+  "register": {
+    "title": "Welcome to register",
+    "phone": "Phone number",
+    "enterPhone": "Please enter phone number",
+    "nickname": "Nick name",
+    "enterNickname": "Please enter a nickname",
+    "password": "Password",
+    "enterPassword": "Please enter password",
+    "confirmPassword": "Confirm Password",
+    "enterConfirmPassword": "Please confirm your password",
+    "passwordMismatch": "Passwords do not match",
+    "inviteCode": "Invitation code",
+    "enterInviteCode": "Please enter the referral code",
+    "registerBtn": "register",
+    "creating": "Creating...",
+    "hasAccount": "Already have an account?",
+    "login": "Log in now",
+    "success": "Registration successful",
+    "failed": "Registration failed"
+  },
+  "order": {
+    "title": "Order record",
+    "initiated": "I initiated",
+    "participating": "Participating",
+    "completed": "Completed",
+    "orderNo": "Order No",
+    "buy": "Buy",
+    "commission": "Commission"
+  },
+  "chat": {
+    "title": "Customer Service",
+    "send": "Send",
+    "quick": {
+      "joinBuy": "I want to join buy",
+      "sellBack": "I want to sell back",
+      "deposit": "I want to deposit"
+    }
+  },
+  "bankCard": {
+    "title": "Bank Card",
+    "realName": "Real Name",
+    "bankName": "Bank Name",
+    "cardNo": "Bank Card No.",
+    "withdrawPwd": "Withdraw Password",
+    "enterRealName": "Enter real name",
+    "enterBankName": "Enter bank name",
+    "enterCardNo": "Enter card number",
+    "enterWithdrawPwd": "Enter withdraw password",
+    "withdrawPwdHint": "Password for withdrawal verification",
+    "saveBtn": "Save Information",
+    "updateBtn": "Update Information",
+    "editBtn": "Edit Information",
+    "fillAll": "Please fill all fields",
+    "saveSuccess": "Saved successfully",
+    "bound": "Bound",
+    "confirmSave": "Confirm to save bank card information?",
+    "confirmUpdate": "Confirm to update bank card information?"
+  },
+  "changePwd": {
+    "title": "Change Password",
+    "loginPwd": "Login Password",
+    "withdrawPwd": "Withdraw Password",
+    "oldPwd": "Old Password",
+    "newPwd": "New Password",
+    "confirmPwd": "Confirm Password",
+    "optional": "Optional if not set",
+    "enterNew": "Enter new password",
+    "confirmNew": "Confirm new password",
+    "updateBtn": "Update Password",
+    "fillAll": "Please fill all fields",
+    "mismatch": "Passwords do not match",
+    "success": "Password updated"
+  },
+  "fund": {
+    "title": "Details",
+    "transaction": "Transaction",
+    "balance": "Balance",
+    "no": "No."
+  },
+  "record": {
+    "rechargeTitle": "Top Up Record",
+    "withdrawTitle": "Withdraw Record",
+    "noMore": "No more data",
+    "empty": "No data",
+    "success": "Success",
+    "failed": "Failed",
     "pending": "Pending"
   },
-  "rewards": {
-    "newbie": {
-      "title": "Newbie Rewards",
-      "totalBonus": "Total bonus",
-      "statusDone": "Done",
-      "statusUndone": "Undone",
-      "go": "Go"
-    },
-    "linkUpi": {
-      "title": "Link UPI Rewards",
-      "totalBonus": "Total bonus",
-      "doneCount": "Done / All types",
-      "receivedBonus": "Received bonus",
-      "linkUpi": "Link UPI",
-      "done": "Done"
-    },
-    "dailyBuy": {
-      "title": "Today Buy INR Amount Rewards",
-      "level0Bonus": "Level 0 bonus",
-      "buyInrAmount": "Buy INR Amount",
-      "yesterdayRewards": "Yesterday Rewards",
-      "reminder": "Rewards for today will be sent tomorrow, and yesterday's records will be cleared. Only the highest bonus from \"Buy INR Amount Reward / Buy INR Times Reward\" will be given.",
-      "goBuy": "Go Buy"
-    },
-    "eventCenter": {
-      "title": "Event List",
-      "newbie": "Newbie Reward",
-      "linkUpi": "Link UPI Reward",
-      "dailyBuy": "Buy INR Amount Reward",
-      "cancel": "cancel"
-    },
-    "kindTips": {
-      "title": "Kind tips",
-      "messageUndone": "Newbie rewards not completed"
-    }
-  },
-
-  "mock": {
-    "fromAsyncData": "Data from asynchronous requests",
-    "noData": "No data",
-    "pull": "Pull",
-    "reset": "Reset"
-  },
-
-  "charts": {
-    "January": "Jan",
-    "February": "Feb",
-    "March": "Mar",
-    "April": "Apr",
-    "May": "May",
-    "June": "Jun"
-  },
-
-  "counter": {
-    "description": "This counter's state is persisted via Pinia. Try refreshing the page to see it in action."
-  },
-
-  "unocss": {
-    "title": "Hello, Unocss!",
-    "description": "This is a simple example of Unocss in action.",
-    "button": "Button"
-  },
-
-  "keepAlive": {
-    "label": "The current component will be cached"
-  },
-
-  "scrollCache": {
-    "sectionTitle": "Section title",
-    "sectionText": "Section text text text text text text text text text text",
-    "finished": "Already at the bottom ~",
-    "loading": "Loading..."
-  },
-
-  "login": {
-    "login": "Sign In",
-    "logout": "Sign Out",
-    "email": "Email",
-    "username": "Username",
-    "password": "Password",
-    "pleaseEnterEmail": "Please enter email",
-    "pleaseEnterUsername": "Please enter username",
-    "pleaseEnterPassword": "Please enter password",
-    "signUp": "Click to sign up",
-    "forgotPassword": "Forgot password?",
-    "sessionExpired": "Session expired, please sign in again",
-    "session": {
-      "expired": "Session expired, please sign in again"
-    }
-  },
-
-  "register": {
-    "email": "Email",
-    "code": "Code",
-    "nickname": "Nickname",
-    "inviteCode": "Invite Code",
-    "phone": "Phone",
-    "password": "Password",
-    "confirmPassword": "Password again",
-    "pleaseEnterEmail": "Please enter email",
-    "pleaseEnterCode": "Please enter code",
-    "pleaseEnterNickname": "Please enter nickname",
-    "pleaseEnterInviteCode": "Please enter invite code",
-    "pleaseEnterPhone": "Please enter phone",
-    "pleaseEnterPassword": "Please enter password",
-    "pleaseEnterConfirmPassword": "Please enter password again",
-    "passwordsDoNotMatch": "Passwords do not match",
-    "confirm": "Confirm",
-    "backToLogin": "Back to login",
-    "getCode": "Get code",
-    "gettingCode": "Getting code",
-    "sendCodeSuccess": "Sent, the code is",
-    "registerSuccess": "Register succeeded"
-  },
-
-  "settings": {
-    "logout": "Sign Out",
-    "currentVersion": "Current Version",
-    "confirmTitle": "Confirm Exit?",
-    "updatePassword": "Update Password",
-    "updateSellLimit": "Update Sell Limit",
-    "enterNewPassword": "Enter new password",
-    "enterOtp": "Enter OTP code",
-    "updateSuccess": "Update succeeded",
-    "updateFailed": "Update failed",
-    "enterAmount": "Enter amount"
-  },
-  "buy": {
-    "tab": {
-      "inr": "INR",
-      "usdt": "USDT"
-    },
-    "filters": {
-      "min": "Min",
-      "max": "Max",
-      "search": "Search"
-    },
-    "subtabs": {
-      "order": "Orders",
-      "history": "Buy History",
-      "cancel": "Cancel History"
-    },
-    "orderCard": {
-      "orderNo": "Order No",
-      "amount": "Amount",
-      "status": "Status",
-      "empty": "No orders available"
-    },
-    "taskCard": {
-      "taskNo": "Task No",
-      "amount": "Amount",
-      "status": "Status",
-      "emptyHistory": "No records",
-      "emptyCancel": "No cancel records"
-    },
-    "pagination": {
-      "prev": "Prev",
-      "next": "Next"
-    },
-    "usdt": {
-      "title": "USDT Buy History",
-      "quantity": "Quantity",
-      "receiveToken": "Receive IToken",
-      "dealDate": "Deal Date",
-      "empty": "No records yet",
-      "enterQuantityPlaceholder": "Enter the quantity",
-      "pleaseEnterTip": "Please enter the value you want buy",
-      "sendOnlyTip": "Send Only USDT to this deposit address",
-      "walletAddress": "Wallet Address",
-      "network": "Network",
-      "saveImage": "Save Image",
-      "copyAddress": "Copy Address",
-      "loadingQr": "Loading QR Code"
-    },
-    "error": {
-      "enterAmount": "Please enter amount",
-      "maxAmount": "Max amount",
-      "minAmount": "Min amount",
-      "submitFailed": "Submit failed",
-      "selectCtType": "Please select type"
-    },
-    "success": {
-      "orderSubmitted": "Order submitted"
-    }
-  },
-  "dict": {
-    "NotifyTemplateType": {
-      "0": "Merchant Notify Template",
-      "1": "Merchant Bill Template",
-      "2": "Merchant Withdraw Template",
-      "3": "Merchant Recharge Template",
-      "4": "Site Recharge Template",
-      "5": "Site Withdraw Template"
-    },
-    "UTRSource": {
-      "0": "Customer Input",
-      "1": "Merchant Bound",
-      "2": "Operator Input",
-      "3": "Auto Fill",
-      "4": "Rebind"
-    },
-    "CliOrderStatus": {
-      "0": "Pending Match",
-      "1": "Paying",
-      "2": "To Confirm",
-      "3": "Timeout",
-      "4": "Success",
-      "5": "Failed",
-      "6": "Canceled"
-    },
-    "DirType": {
-      "0": "Increase",
-      "1": "Decrease",
-      "2": "Other"
-    },
-    "RoleType": {
-      "0": "Super Admin",
-      "1": "Site Owner",
-      "2": "Admin",
-      "3": "Maintainer",
-      "4": "Member"
-    },
-    "PayTaskStatus": {
-      "0": "Initialized",
-      "1": "To Be Processed",
-      "2": "Processing",
-      "3": "Closed",
-      "4": "Success",
-      "5": "Failed"
-    },
-    "CtxScope": {
-      "0": "Backend",
-      "1": "Frontend",
-      "2": "Device"
-    },
-    "PayMode": {
-      "0": "None",
-      "1": "Payer",
-      "2": "Payee",
-      "3": "All"
-    },
-    "OptionsType": {
-      "0": "Merchant Select",
-      "1": "Bonus Type",
-      "2": "UPI Select",
-      "3": "Client Code Select"
-    },
-    "BalanceFlwType": {
-      "0": "Manual Recharge Balance Increase",
-      "1": "Manual Recharge Balance Decrease",
-      "2": "Manual Payment Balance Increase",
-      "3": "Manual Payment Balance Decrease",
-      "4": "Recharge Order Success Increase",
-      "5": "Recharge Order Destroy Decrease",
-      "6": "Payment Order Submit Decrease",
-      "7": "Payment Order Destroy Increase"
-    },
-    "MenuScope": {
-      "0": "All",
-      "1": "Platform",
-      "2": "Merchant"
-    },
-    "TokenDirection": {
-      "0": "Balance Increase",
-      "1": "Balance Deduction",
-      "2": "Balance To Frozen",
-      "3": "Balance To Unrecorded",
-      "4": "Frozen Increase",
-      "5": "Frozen Deduction",
-      "6": "Frozen To Balance",
-      "7": "Frozen To Unrecorded",
-      "8": "Unrecorded Increase",
-      "9": "Unrecorded Deduction",
-      "10": "Unrecorded To Balance",
-      "11": "Unrecorded To Frozen"
-    },
-    "RptType": {
-      "0": "Daily Stats",
-      "1": "Monthly Stats",
-      "2": "Total Stats"
-    },
-    "BalanceType": {
-      "0": "Recharge Balance",
-      "1": "Payment Balance"
-    },
-    "CallbackStatus": {
-      "0": "Initialized",
-      "1": "Calling Back",
-      "2": "Callback Success",
-      "3": "Callback Failed"
-    },
-    "OperateType": {
-      "0": "None",
-      "1": "Payment",
-      "2": "Collection",
-      "3": "Payment & Collection"
-    },
-    "RecordStatus": {
-      "0": "Unrecorded",
-      "1": "Recorded",
-      "2": "Auto Release"
-    },
-    "LinkStatus": {
-      "0": "Taking Orders",
-      "1": "Idle",
-      "2": "Timeout",
-      "3": "Login Error",
-      "4": "Waiting Online",
-      "5": "Waiting Auth",
-      "6": "Auth Code Mismatch",
-      "7": "Closing"
-    },
-    "ConnectStatus": {
-      "0": "Offline",
-      "1": "Online"
-    },
-    "NotifyStatus": {
-      "0": "Initialized",
-      "1": "Waiting Notify",
-      "2": "Notify Success",
-      "3": "Notify Failed"
-    },
-    "ExecuteType": {
-      "0": "Merchant Recharge Submit",
-      "1": "Merchant Recharge Callback",
-      "2": "Merchant Recharge Callback Retry",
-      "3": "Merchant Withdraw Submit",
-      "4": "Merchant Withdraw Callback",
-      "5": "Merchant Withdraw Callback Retry"
-    },
-    "TokenFlwType": {
-      "0": "Manual Add Balance",
-      "1": "Manual Deduct Balance",
-      "2": "Manual Freeze Balance",
-      "3": "Manual Unfreeze Balance",
-      "4": "Manual Deduct Frozen",
-      "5": "Unrecorded To Frozen",
-      "6": "Unrecorded To Balance",
-      "7": "Manual Add Unrecorded",
-      "8": "Manual Deduct Unrecorded",
-      "9": "Recharge Order Match",
-      "10": "Recharge Order Success",
-      "11": "Recharge Order Failed",
-      "12": "Recharge Order Release",
-      "13": "Withdraw Task Success",
-      "14": "Daily Purchase Reward",
-      "15": "Withdraw Task Reward",
-      "16": "Withdraw Task Dividend",
-      "17": "USDT Recharge Success",
-      "18": "USDT Recharge Dividend",
-      "19": "USDT Recharge Reward",
-      "20": "INR Purchase Reward",
-      "21": "INR Purchase Dividend",
-      "22": "Member Return Reward"
-    },
-    "ResourceType": {
-      "0": "Banner",
-      "1": "Announcement",
-      "2": "Event",
-      "3": "News",
-      "4": "Tutorial"
-    },
-    "ParamType": {
-      "0": "Integer",
-      "1": "Decimal",
-      "2": "String",
-      "3": "Boolean",
-      "4": "Timestamp",
-      "5": "JSON"
-    },
-    "PermMenuGroup": {
-      "0": "System Module",
-      "1": "Permission Module",
-      "2": "Log Module",
-      "3": "Basic Settings",
-      "4": "Business Management",
-      "5": "Data Management"
-    },
-    "MemberType": {
-      "0": "Agent",
-      "1": "Trader"
-    },
-    "SyncRes": {
-      "0": "Success",
-      "1": "Failed"
-    },
-    "BindSource": {
-      "0": "Unbound",
-      "1": "Merchant Bound",
-      "2": "Operator Bound",
-      "3": "User Bound",
-      "4": "Rebind"
-    },
-    "SyncSourceType": {
-      "0": "Auto Sync",
-      "1": "Manual Sync",
-      "2": "Online Check",
-      "3": "Submit Sync",
-      "4": "Payment Complete",
-      "5": "Rebind"
-    }
-  },
-  "buyHistory": {
-    "title": "Buy History",
-    "tabs": {
-      "inr": "INR",
-      "inrCancel": "Cancel",
-      "inrLock": "Locked",
-      "usdt": "USDT"
-    },
-    "labels": {
-      "orderNo": "OrderNo",
-      "detail": "Detail",
-      "quantity": "Quantity"
-    },
-    "empty": "Itoken has not been buy in this way",
-    "toBuy": "To buy",
-    "loading": "Loading",
-    "pagination": {
-      "prev": "Prev",
-      "next": "Next"
-    },
-    "usdt": {
-      "tip1": "If Deposits not arrived",
-      "tip2": "Please contact service"
-    },
-    "toast": {
-      "loadFail": "Failed to load history"
-    }
-  },
-  "sellHistory": {
-    "title": "Sell History",
-    "tabs": {
-      "paying": "Paying",
-      "success": "Success",
-      "all": "All"
-    },
-    "labels": {
-      "orderNo": "Order No",
-      "detail": "Detail",
-      "amount": "Amount",
-      "upiNo": "UPI No",
-      "realName": "Real Name",
-      "utrNo": "UTR No",
-      "clientOrderNo": "Client Order No",
-      "createTime": "Create time",
-      "finishTime": "Finish time",
-      "username": "Username",
-      "memo": "Memo",
-      "status": "Status",
-      "close": "Close"
-    },
-    "empty": "There are no sales orders at the moment. If you have enabled consignment, please check the authorization of the key partner and whether the kyc partner can receive payment normally or contact customer service in time",
-    "checkSellState": "Check Sell state",
-    "pagination": {
-      "prev": "Prev",
-      "next": "Next"
-    },
-    "status": {
-      "pending": "Pending",
-      "paying": "Paying",
-      "paid": "Paid",
-      "success": "Success",
-      "failed": "Failed",
-      "cancelled": "Cancelled",
-      "unknown": "Unknown"
-    },
-    "toast": {
-      "loadFail": "Failed to load sell history"
-    }
-  },
-  "sell": {
-    "title": "Sell",
-    "iToken": "I Token",
-    "stats": {
-      "inTransaction": "In transaction",
-      "todayDeal": "Today Deal",
-      "todayTimes": "Today times",
-      "todaySuccess": "Today Success"
-    },
-    "inSell": "In Sell",
-    "inActive": "In Active",
-    "activeUpi": "Active UPI",
-    "manageUpi": "Manage UPI",
-    "buyIToken": "Buy IToken",
-    "sellHistory": "Sell History",
-    "officialService": "Official Service",
-    "tips": {
-      "title": "Tips",
-      "message": "For switch sell, please go to Manage kyc partner use Operating",
-      "cancel": "Cancel",
-      "ok": "Ok"
-    }
-  },
-  "upi": {
-    "index": {
-      "headerWarning": "If you change your UPI ID, please relink UPI.",
-      "tutorial": "UPI Tutorial",
-      "linkNewUpi": "Link New UPI",
-      "offlineWarning": "This UPI is offline. Please check details.",
-      "sellingLabel": "Selling",
-      "stoppedLabel": "Stopped",
-      "manage": "Manage",
-      "details": "Details",
-      "statusOnline": "Online",
-      "statusOffline": "Offline",
-      "actionSheetTitle": "Operate the linked KYC partner",
-      "relink": "Relink",
-      "startSell": "Start Sell",
-      "cancel": "Cancel",
-      "otpTitle": "Enter OTP",
-      "otpPlaceholder": "Enter 6-digit OTP",
-      "toast": {
-        "relinkFailed": "Relink failed",
-        "relinkSuccess": "Relink successful",
-        "statusUpdated": "Status updated",
-        "updateFailed": "Update failed",
-        "invalidOtp": "Invalid OTP code"
-      }
-    },
-    "link": {
-      "partnerLabel": "Partner",
-      "partnerPlaceholder": "Select a KYC partner",
-      "nameLabel": "Name",
-      "namePlaceholder": "Enter your name",
-      "upiLabel": "UPI ID",
-      "upiPlaceholder": "Enter UPI ID (e.g., name\uFF20bank)",
-      "linkButton": "Link UPI",
-      "otpTitle": "Enter OTP",
-      "otpPlaceholder": "Enter 6-digit OTP",
-      "chooseTitle": "Choose a KYC partner",
-      "toast": {
-        "selectPartner": "Please select a partner",
-        "enterName": "Please enter your name",
-        "enterUpi": "Please enter UPI ID",
-        "invalidUpi": "Invalid UPI ID format",
-        "linkFailed": "Link failed",
-        "enterOtp": "Please enter OTP code",
-        "invalidOtp": "Invalid OTP code",
-        "linkSuccess": "Link successful",
-        "otpFailed": "OTP verification failed"
-      }
-    }
+  "collection": {
+    "emptyHint": "No items in your collection yet"
   }
 }

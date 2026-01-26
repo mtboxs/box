@@ -1,136 +1,133 @@
 <script setup lang="ts">
+import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores'
-
-import logo from '~/images/logo.svg'
-import logoDark from '~/images/logo-dark.svg'
+import { showToast } from 'vant'
+import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 const router = useRouter()
 const userStore = useUserStore()
 const loading = ref(false)
 
-const dark = ref<boolean>(isDark.value)
-
-watch(
-  () => isDark.value,
-  (newMode) => {
-    dark.value = newMode
-  },
-)
-
 const postData = reactive({
-  username: import.meta.env.DEV ? (import.meta.env.VITE_APP_DEFAULT_USERNAME || '') : '',
-  password: import.meta.env.DEV ? (import.meta.env.VITE_APP_DEFAULT_PASSWORD || '') : '',
+  phone: '',
+  password: '',
 })
 
-const rules = reactive({
-  username: [
-    { required: true, message: t('login.pleaseEnterUsername') },
-  ],
-  password: [
-    { required: true, message: t('login.pleaseEnterPassword') },
-  ],
-})
-
-const showPwd = ref(false)
-function togglePwd() {
-  showPwd.value = !showPwd.value
+// Rules need to be reactive or computed if we want them to change with language switch,
+// but for now simple object is fine, or use computed for messages if dynamic switch is needed without reload.
+// Assuming dynamic switch:
+const rules = {
+  phone: [{ required: true, message: () => t('login.enterPhone') }],
+  password: [{ required: true, message: () => t('login.enterPassword') }],
 }
 
-async function login(values: any) {
+async function handleLogin() {
+  if (!postData.phone || !postData.password) return
+  
   try {
     loading.value = true
-    await userStore.login({ ...postData, ...values })
-    const { redirect, ...othersQuery } = router.currentRoute.value.query
-    const toName = (redirect as any) || 'Home'
-    router.push({ name: toName as any, query: { ...othersQuery } })
-  }
-  finally {
+    await userStore.login(postData)
+    // On success
+    router.push({ name: 'Home' })
+  } catch (error) {
+    showToast(t('login.loginFailed'))
+  } finally {
     loading.value = false
   }
 }
 </script>
 
 <template>
-  <div class="bg-[#FFF9F5] flex flex-col min-h-screen">
-    <div class="px-6 py-8 flex flex-1 flex-col justify-center">
-      <!-- Logo & Brand -->
-      <div class="mb-8 text-center">
-        <div class="mx-auto mb-3 rounded-full bg-white flex h-24 w-24 shadow-lg items-center justify-center">
-          <van-image :src="dark ? logoDark : logo" class="h-16 w-16" alt="brand logo" />
+  <div class="min-h-screen bg-[#0E444F] flex items-center justify-center p-4">
+    <div class="w-full max-w-sm bg-white rounded-3xl shadow-2xl overflow-hidden relative pb-10">
+      
+      <!-- Top Mascot & Logo -->
+      <div class="pt-8 pb-4 text-center">
+        <!-- Mascot Circle -->
+        <div class="w-24 h-24 mx-auto rounded-full bg-[#A8E6F0] flex items-end justify-center overflow-hidden mb-3 border-4 border-white shadow-sm relative z-10">
+           <!-- Using a specific image if possible, otherwise placeholder -->
+           <img src="https://www.prestashop.com/sites/default/files/wysiwyg/preston-graduate.png" class="w-20 h-20 object-contain -mb-1" />
         </div>
-        <h1 class="text-3xl text-[#FF9933] font-800 mb-2">
-          BitCent
+        
+        <!-- Brand Text -->
+        <h1 class="text-3xl font-bold tracking-tight">
+          <span class="text-[#1E1E50]">Presta</span><span class="text-[#E91E63]">Shop</span>
         </h1>
-        <p class="text-base text-gray-900 font-600">
-          Welcome Back
-        </p>
-        <p class="text-sm text-gray-500 mt-1">
-          Sign in to continue
-        </p>
       </div>
 
-      <van-form :model="postData" :rules="rules" validate-trigger="onSubmit" @submit="login">
-        <div class="space-y-4">
-          <div class="rounded-xl bg-white shadow-sm overflow-hidden">
+      <!-- Login Form Area -->
+      <div class="px-8">
+        <h2 class="text-2xl font-bold text-black mb-6">{{ t('login.title') }}</h2>
+
+        <van-form @submit="handleLogin">
+          <!-- Phone -->
+          <div class="mb-4">
+            <label class="block text-xs text-gray-400 mb-1 ml-1">{{ t('login.phone') }}</label>
             <van-field
-              v-model="postData.username"
-              :rules="rules.username"
-              name="username"
-              :placeholder="$t('login.username')"
-              clearable
-              clear-trigger="always"
-              class="!py-3"
+              v-model="postData.phone"
+              name="phone"
+              :placeholder="t('login.enterPhone')"
+              :rules="rules.phone"
+              class="!bg-[#F5F5F5] !rounded-lg !py-3 !px-4"
+              :border="false"
             />
           </div>
 
-          <div class="rounded-xl bg-white shadow-sm overflow-hidden">
+          <!-- Password -->
+          <div class="mb-8">
+            <label class="block text-xs text-gray-400 mb-1 ml-1">{{ t('login.password') }}</label>
             <van-field
               v-model="postData.password"
-              :type="showPwd ? 'text' : 'password'"
-              :rules="rules.password"
+              type="password"
               name="password"
-              :placeholder="$t('login.password')"
-              clearable
-              clear-trigger="always"
-              class="!py-3"
-            >
-              <template #right-icon>
-                <div
-                  :class="showPwd ? 'i-carbon:view' : 'i-carbon:view-off'"
-                  class="text-lg text-gray-400"
-                  @click="togglePwd"
-                />
-              </template>
-            </van-field>
+              :placeholder="t('login.enterPassword')"
+              :rules="rules.password"
+              class="!bg-[#F5F5F5] !rounded-lg !py-3 !px-4"
+              :border="false"
+            />
           </div>
 
+          <!-- Submit Button -->
           <button
             type="submit"
-            class="text-base text-white font-600 mt-6 py-4 rounded-xl bg-[#FF9933] w-full shadow-sm active:bg-[#E68A2E] disabled:opacity-50"
+            class="w-full bg-black text-white font-bold py-3.5 rounded-full shadow-lg active:scale-95 transition-transform"
             :disabled="loading"
           >
-            <span v-if="loading">Loading...</span>
-            <span v-else>{{ $t('login.login') }}</span>
+            <span v-if="loading">{{ t('login.loading') }}</span>
+            <span v-else>{{ t('login.loginBtn') }}</span>
           </button>
-        </div>
-      </van-form>
+        </van-form>
 
-      <div class="mt-6 text-center">
-        <p class="text-sm text-gray-500">
-          Don't have an account?
-        </p>
-        <router-link :to="{ name: 'Register' }" class="text-base text-[#FF9933] font-600 mt-1 inline-block">
-          {{ $t('login.signUp') }}
-        </router-link>
+        <!-- Footer Link -->
+        <div class="text-center mt-6 text-sm">
+          <span class="text-gray-400">{{ t('login.noAccount') }} </span>
+          <router-link :to="{ name: 'Register' }" class="text-red-500 font-bold hover:underline">
+            {{ t('login.signup') }}
+          </router-link>
+        </div>
       </div>
+
     </div>
   </div>
 </template>
 
+<style scoped>
+:deep(.van-field__control) {
+  color: #333;
+}
+:deep(.van-cell) {
+  padding: 0;
+  background: transparent;
+}
+</style>
+
 <route lang="json5">
 {
-  name: 'Login'
+  name: 'Login',
+  meta: {
+    layout: 'blank'
+  }
 }
 </route>

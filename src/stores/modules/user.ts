@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { LoginData, MbrContext } from '@/api/user'
+import type { MbrLoginRequest, MbeRegisterRequest, MemberContext } from '@/api/user'
 import { clearToken, setToken } from '@/utils/auth'
 import md5 from 'crypto-js/md5'
 import { STORAGE_USER_KEY } from '@/stores/mutation-type'
@@ -11,34 +11,67 @@ import {
   register as userRegister,
 } from '@/api/user'
 
-const InitUserInfo: MbrContext = {
-  uid: '',
+const InitUserInfo: MemberContext = {
+  account: '',
+  actualName: '',
+  balance: 0,
+  bankCardNo: '',
+  bankName: '',
+  banned: false,
+  currToken: '',
+  id: 0,
+  integral: 0,
+  inviteCode: '',
+  logoNumber: '',
+  mbrType: '0',
+  nickname: '',
+  phone: '',
+  root: false,
+  status: '0',
+  todayEarnings: 0,
+  totalRevenue: 0,
+  vipLevel: '0',
   username: '',
+  uid: '',
+  bal: 0,
 }
 
 export const useUserStore = defineStore('user', () => {
-  const userInfo = ref<MbrContext>({ ...InitUserInfo })
+  const userInfo = ref<MemberContext>({ ...InitUserInfo })
 
   // Set user's information
-  const setInfo = (partial: Partial<MbrContext>) => {
-    userInfo.value = { ...partial }
+  const setInfo = (partial: Partial<MemberContext>) => {
+    // Merge existing info with new partial data
+    userInfo.value = { ...userInfo.value, ...partial }
+    
+    // Map fields to aliases for compatibility with UI components
+    userInfo.value.username = userInfo.value.account || userInfo.value.nickname
+    userInfo.value.uid = String(userInfo.value.id)
+    
+    // Ensure balance is number
+    const balanceVal = Number(userInfo.value.balance)
+    userInfo.value.balance = isNaN(balanceVal) ? 0 : balanceVal
+    userInfo.value.bal = userInfo.value.balance
+
     localStorage.setItem(STORAGE_USER_KEY, JSON.stringify(userInfo.value))
   }
 
-  const login = async (loginForm: LoginData) => {
+  const login = async (loginForm: MbrLoginRequest) => {
     try {
-      const payload = { ...loginForm, password: md5(loginForm.password).toString() }
-      const { data, code } = await userLogin(payload)
-      if (code === '200') {
-        setToken(data as unknown as string)
-        const infoRes = await getUserInfo()
-        if (infoRes.code === '200') {
-          setInfo(infoRes.data)
-        }
+      const payload = { ...loginForm }
+      if (loginForm.password) {
+        payload.password = md5(loginForm.password).toString()
       }
-      else {
-        throw new Error('login failed')
+
+      const res = await userLogin(payload)
+      if (res.code === '200') {
+        // data is string token: "w#43d0fde660914363a514c4b43c6de837"
+        setToken(res.data)
+        await info() // fetch user info immediately after login
+        return true
       }
+      // Login failed with error message from server
+      throw new Error(res.msg || 'Login failed')
     }
     catch (error) {
       clearToken()
@@ -52,13 +85,12 @@ export const useUserStore = defineStore('user', () => {
       if (code === '200') {
         setInfo(data)
       }
-      else {
-        throw new Error('userinfo failed')
-      }
     }
     catch (error) {
-      clearToken()
-      throw error
+      // If fetching info fails (e.g. 401), clear token
+      // clearToken() 
+      // Commented out clearToken to avoid loop if info fails for other reasons, 
+      // let auth interceptor handle 401s
     }
   }
 
@@ -72,13 +104,15 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  const register = async (payload: { inviteCode: string, phone: string, password: string }) => {
+  const register = async (payload: MbeRegisterRequest) => {
     try {
-      const data = { ...payload, password: md5(payload.password).toString() }
+      const data = { ...payload, loginPassword: md5(payload.loginPassword).toString() }
       const res = await userRegister(data)
       return res
     }
-    catch {}
+    catch (e) {
+      throw e
+    }
   }
 
   return {

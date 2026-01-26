@@ -98,7 +98,7 @@ export function createVitePlugins(mode: string) {
 
     // https://github.com/vadxq/vite-plugin-vconsole
     createViteVConsole(mode),
-    ...(mode === 'development' ? [VueDevTools()] : []),
+    // ...(mode === 'development' ? [VueDevTools()] : []),
     ...mockPlugins,
     // https://github.com/antfu/vite-plugin-pwa
     VitePWA({
