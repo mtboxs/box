@@ -73,13 +73,14 @@ async function register() {
     <div class="px-6 py-8 flex flex-1 flex-col justify-center">
       <!-- Header -->
       <div class="mb-6 text-center">
-        <div class="mx-auto mb-4 rounded-full bg-[#FF9933] flex h-20 w-20 shadow-lg items-center justify-center">
-          <div class="i-carbon:user-avatar text-3xl text-white" />
+        <!-- Mascot Circle -->
+        <div class="w-24 h-24 mx-auto rounded-full bg-[#A8E6F0] flex items-center justify-center overflow-hidden mb-3 border-4 border-white shadow-sm relative z-10">
+          <img src="/logo.jpg" class="w-full h-full object-cover" />
         </div>
-        <h1 class="text-2xl text-gray-900 font-700">
-          Create Account
+        <h1 class="text-3xl font-bold tracking-tight mb-2">
+          <span class="text-[#1E1E50]">Presta</span><span class="text-[#E91E63]">Shop</span>
         </h1>
-        <p class="text-sm text-gray-500 mt-1">
+        <p class="text-sm text-gray-500">
           Join us and start earning
         </p>
       </div>
