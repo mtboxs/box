@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { getCompletedOrders, getAwaitPayOrders, submitRepurchase } from '@/api/mine'
+import { getCompletedOrders, getAwaitPayOrders, submitRepurchase, payOrder } from '@/api/mine'
 import type { ProductOrderResponse } from '@/api/mine'
 import { useI18n } from 'vue-i18n'
 import { showToast, showLoadingToast, closeToast, showConfirmDialog } from 'vant'
@@ -56,6 +56,32 @@ const loadData = async (isRefresh = false) => {
 
 const onTabChange = () => {
   loadData(true)
+}
+
+const handlePay = (item: ProductOrderResponse) => {
+  showConfirmDialog({
+    title: t('profile.tips'),
+    message: t('order.confirmPay'),
+    confirmButtonText: t('profile.confirm'),
+    cancelButtonText: t('profile.cancel'),
+  })
+    .then(async () => {
+      showLoadingToast({ message: t('order.paying'), forbidClick: true })
+      try {
+        const res = await payOrder({ id: item.id })
+        closeToast()
+        if (res.code === '200') {
+          showToast({ type: 'success', message: t('order.paySuccess') })
+          loadData(true)
+        } else {
+          showToast({ type: 'fail', message: res.msg || t('order.payFailed') })
+        }
+      } catch (error) {
+        closeToast()
+        showToast({ type: 'fail', message: t('activity.networkError') })
+      }
+    })
+    .catch(() => {})
 }
 
 const handleRepurchase = (item: ProductOrderResponse) => {
@@ -145,43 +171,51 @@ const formatTime = (time: string | number) => {
            :key="item.id" 
            class="bg-white rounded-xl p-4 mb-4 shadow-lg relative"
          >
-            <div class="text-xs text-gray-500 mb-2">{{ t('order.orderNo') }}:{{ item.orderNo }}</div>
+            <div class="text-xs text-gray-500 mb-3 pb-2 border-b border-gray-100 flex justify-between items-center">
+              <span>{{ t('order.orderNo') }}: {{ item.orderNo }}</span>
+              <span class="text-[10px] text-gray-400">{{ formatTime(item.createAt) }}</span>
+            </div>
             
             <div class="flex gap-3">
                <div class="w-24 h-24 bg-gray-100 rounded-lg flex-shrink-0 overflow-hidden">
                   <img :src="item.pic1Url" class="w-full h-full object-cover" />
                </div>
                
-               <div class="flex-1 min-w-0 flex flex-col justify-between">
+               <div class="flex-1 min-w-0 flex flex-col justify-between py-0.5">
                   <h3 class="text-sm font-medium text-gray-900 line-clamp-2 leading-tight">
                     {{ item.productName }}
                   </h3>
                   
-                  <div class="mt-1">
-                     <div class="flex items-baseline gap-2">
-                        <span class="text-red-600 font-bold text-lg">{{ item.orderPrice }}฿</span>
-                        <span class="text-gray-400 text-xs line-through">{{ item.labelPrice }}฿</span>
+                  <div class="mt-2">
+                     <div class="flex items-center justify-between">
+                       <div class="flex items-baseline gap-2">
+                          <span class="text-red-600 font-bold text-lg">{{ item.orderPrice }}฿</span>
+                          <span class="text-gray-400 text-xs line-through">{{ item.labelPrice }}฿</span>
+                       </div>
+                       
+                       <!-- Buttons -->
+                       <button 
+                         v-if="activeTab === 2"
+                         @click="handleRepurchase(item)"
+                         class="bg-gray-800 text-white text-[10px] font-bold px-4 py-1.5 rounded-full shadow-sm active:scale-95 transition-transform border border-gray-700 hover:bg-black"
+                       >
+                         {{ t('repurchase.submit') }}
+                       </button>
+                       
+                       <button 
+                         v-if="activeTab === 1"
+                         @click="handlePay(item)"
+                         class="bg-red-600 text-white text-[10px] font-bold px-4 py-1.5 rounded-full shadow-sm active:scale-95 transition-transform hover:bg-red-700"
+                       >
+                         {{ t('order.pay') }}
+                       </button>
                      </div>
                      
-                     <div class="inline-block bg-gray-600 rounded-full px-2 py-0.5 mt-1">
-                        <span class="text-[10px] text-white">{{ t('order.commission') }}: {{ item.commission }}฿</span>
-                     </div>
-                     
-                     <div class="text-[10px] text-gray-400 mt-1">
-                        {{ formatTime(item.createAt) }}
+                     <div class="inline-block bg-gray-100 rounded px-2 py-0.5 mt-2">
+                        <span class="text-[10px] text-gray-600 font-medium">{{ t('order.commission') }}: {{ item.commission }}฿</span>
                      </div>
                   </div>
                </div>
-            </div>
-
-            <!-- Action Button -->
-            <div class="absolute bottom-4 right-4" v-if="activeTab === 2"> 
-               <button 
-                 @click="handleRepurchase(item)"
-                 class="bg-gray-800 text-white text-[10px] font-bold px-4 py-1.5 rounded-full shadow-sm active:scale-95 transition-transform border border-gray-700 hover:bg-black"
-               >
-                 {{ t('repurchase.submit') }}
-               </button>
             </div>
          </div>
        </van-list>

@@ -25,7 +25,6 @@ const showLangSheet = ref(false)
 
 const langOptions = [
   { name: 'ภาษาไทย (Thai)', value: 'th-TH' },
-  { name: '简体中文 (Chinese)', value: 'zh-CN' },
   { name: 'English', value: 'en-US' },
 ]
 

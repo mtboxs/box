@@ -243,6 +243,15 @@ export function submitRepurchase(data: BaseUpdateRequest): Promise<ApiResponse<v
 }
 
 /**
+ * Pay Order (订单付款)
+ */
+export function payOrder(data: BaseUpdateRequest): Promise<ApiResponse<void>> {
+  return request.post('/mine/payOrder.do', data, {
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
+/**
  * Save Bank Info (修改银行卡信息)
  */
 export function saveBankInfo(data: BankInfoSaveRequest): Promise<ApiResponse<void>> {

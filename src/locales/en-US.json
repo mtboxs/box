@@ -160,7 +160,12 @@
     "completed": "Completed",
     "orderNo": "Order No",
     "buy": "Buy",
-    "commission": "Commission"
+    "commission": "Commission",
+    "pay": "Pay",
+    "confirmPay": "Confirm to pay for this order?",
+    "paying": "Paying...",
+    "paySuccess": "Payment successful",
+    "payFailed": "Payment failed"
   },
   "chat": {
     "title": "Customer Service",

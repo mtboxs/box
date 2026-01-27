@@ -292,7 +292,14 @@
       "orderNo": "订单号",
       "amount": "金额",
       "status": "状态",
-      "empty": "暂无订单"
+      "empty": "暂无订单",
+      "buy": "购买",
+      "commission": "佣金",
+      "pay": "支付",
+      "confirmPay": "确认支付该订单？",
+      "paying": "支付中...",
+      "paySuccess": "支付成功",
+      "payFailed": "支付失败"
     },
     "taskCard": {
       "taskNo": "任务号",
