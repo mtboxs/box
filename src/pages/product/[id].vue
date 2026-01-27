@@ -133,7 +133,7 @@ const handleBuy = async () => {
   try {
     const res = await buyProduct({ id: product.value.id })
     if (res.code === '200') {
-      showToast({ type: 'success', message: t('home.grabOrder') + ' Success' })
+      showToast({ type: 'success', message: res.msg || 'Success' })
     } else {
       showToast({ type: 'fail', message: res.msg || 'Failed' })
     }

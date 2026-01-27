@@ -78,10 +78,13 @@ const onSubmit = async () => {
 
   showLoadingToast({ message: t('login.loading'), forbidClick: true })
   try {
-    const res = await saveBankInfo({
-      ...form.value,
+    const payload = {
+      actualName: form.value.actualName,
+      bankName: form.value.bankName,
+      bankCardNo: form.value.bankCardNo,
       withdrawPassword: MD5(form.value.withdrawPassword).toString()
-    })
+    }
+    const res = await saveBankInfo(payload)
     closeToast()
     if (res.code === '200') {
       showToast({ type: 'success', message: t('bankCard.saveSuccess') })

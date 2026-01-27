@@ -25,7 +25,7 @@ const showRechargeDialog = ref(false)
 const rechargeAmount = ref('')
 
 const handleRecharge = () => {
-  showRechargeDialog.value = true
+  router.push('/profile/chat')
 }
 
 const submitRecharge = () => {
@@ -43,20 +43,7 @@ const submitRecharge = () => {
 const showWithdrawSheet = ref(false)
 
 const handleWithdraw = () => {
-  // Check if bank card is bound
-  if (!hasBankCard.value) {
-    showDialog({
-      title: t('profile.tips'),
-      message: t('profile.bindBankCardFirst'),
-      confirmButtonText: t('profile.goToBind'),
-      cancelButtonText: t('profile.cancel'),
-      showCancelButton: true,
-    }).then(() => {
-      router.push('/profile/bank-card')
-    }).catch(() => {})
-    return
-  }
-  showWithdrawSheet.value = true
+  router.push('/profile/chat')
 }
 
 const withdrawActions = computed(() => [

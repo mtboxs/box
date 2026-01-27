@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { getCompletedOrders, getRepurchaseOrders } from '@/api/mine'
+import { getCompletedOrders, getAwaitPayOrders, submitRepurchase } from '@/api/mine'
 import type { ProductOrderResponse } from '@/api/mine'
 import { useI18n } from 'vue-i18n'
+import { showToast, showLoadingToast, closeToast, showConfirmDialog } from 'vant'
+import dayjs from 'dayjs'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -18,7 +20,7 @@ const page = ref(1)
 
 // Map tab to API
 const fetchMap = {
-  1: getRepurchaseOrders, // Assuming 'Participating' maps to repurchase/pending orders
+  1: getAwaitPayOrders,
   2: getCompletedOrders
 }
 
@@ -56,7 +58,43 @@ const onTabChange = () => {
   loadData(true)
 }
 
+const handleRepurchase = (item: ProductOrderResponse) => {
+  showConfirmDialog({
+    title: t('repurchase.confirmTitle'),
+    message: t('repurchase.confirmMsg'),
+    confirmButtonText: t('profile.confirm'),
+    cancelButtonText: t('profile.cancel'),
+  })
+    .then(async () => {
+      showLoadingToast({ message: t('repurchase.processing'), forbidClick: true })
+      try {
+        const res = await submitRepurchase({ id: item.id })
+        closeToast()
+        if (res.code === '200') {
+          showToast({ type: 'success', message: t('repurchase.success') })
+          // Refresh list
+          loadData(true)
+        } else {
+          showToast({ type: 'fail', message: res.msg || t('repurchase.failed') })
+        }
+      } catch (error) {
+        closeToast()
+        showToast({ type: 'fail', message: t('activity.networkError') })
+      }
+    })
+    .catch(() => {
+      // cancel
+    })
+}
+
 const goBack = () => router.back()
+
+const formatTime = (time: string | number) => {
+  if (!time) return ''
+  // If it's a timestamp (number or string number), convert to number
+  const timestamp = typeof time === 'string' && /^\d+$/.test(time) ? Number(time) : time
+  return dayjs(timestamp).format('YYYY-MM-DD HH:mm:ss')
+}
 </script>
 
 <template>
@@ -130,21 +168,21 @@ const goBack = () => router.back()
                      </div>
                      
                      <div class="text-[10px] text-gray-400 mt-1">
-                        {{ item.createAt }}
+                        {{ formatTime(item.createAt) }}
                      </div>
                   </div>
                </div>
             </div>
 
             <!-- Action Button -->
-            <!-- <div class="absolute bottom-4 right-4" v-if="activeTab === 0"> 
+            <div class="absolute bottom-4 right-4" v-if="activeTab === 2"> 
                <button 
-                 @click="handleBuy(item)"
-                 class="bg-black text-white text-xs font-bold px-6 py-1.5 rounded-full"
+                 @click="handleRepurchase(item)"
+                 class="bg-black text-white text-xs font-bold px-6 py-1.5 rounded-full shadow-md active:scale-95 transition-transform"
                >
-                 {{ t('order.buy') }}
+                 {{ t('repurchase.submit') }}
                </button>
-            </div> -->
+            </div>
          </div>
        </van-list>
     </div>
