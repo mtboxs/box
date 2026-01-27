@@ -178,7 +178,7 @@ const formatTime = (time: string | number) => {
             <div class="absolute bottom-4 right-4" v-if="activeTab === 2"> 
                <button 
                  @click="handleRepurchase(item)"
-                 class="bg-black text-white text-xs font-bold px-6 py-1.5 rounded-full shadow-md active:scale-95 transition-transform"
+                 class="bg-gray-800 text-white text-[10px] font-bold px-4 py-1.5 rounded-full shadow-sm active:scale-95 transition-transform border border-gray-700 hover:bg-black"
                >
                  {{ t('repurchase.submit') }}
                </button>

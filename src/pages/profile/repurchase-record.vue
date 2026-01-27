@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { getRepurchaseOrders, getRepurchasedOrders, submitRepurchase } from '@/api/mine'
+import { getRepurchaseOrders, getRepurchasedOrders } from '@/api/mine'
 import type { ProductOrderResponse } from '@/api/mine'
-import { showToast, showLoadingToast, closeToast, showConfirmDialog } from 'vant'
 import { useI18n } from 'vue-i18n'
+import dayjs from 'dayjs'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -57,30 +57,10 @@ const onRefresh = () => {
   loadData(true)
 }
 
-const handleRepurchase = (item: ProductOrderResponse) => {
-  showConfirmDialog({
-    title: t('repurchase.confirmTitle'),
-    message: t('repurchase.confirmMsg'),
-  })
-    .then(async () => {
-      showLoadingToast({ message: t('repurchase.processing'), forbidClick: true })
-      try {
-        const res = await submitRepurchase({ id: item.id })
-        closeToast()
-        if (res.code === '200') {
-          showToast({ type: 'success', message: t('repurchase.success') })
-          loadData(true) // Refresh list
-        } else {
-          showToast({ type: 'fail', message: res.msg || t('repurchase.failed') })
-        }
-      } catch (error) {
-        closeToast()
-        showToast({ type: 'fail', message: t('activity.networkError') })
-      }
-    })
-    .catch(() => {
-      // on cancel
-    })
+const formatTime = (time: string | number) => {
+  if (!time) return ''
+  const timestamp = typeof time === 'string' && /^\d+$/.test(time) ? Number(time) : time
+  return dayjs(timestamp).format('YYYY-MM-DD HH:mm:ss')
 }
 
 const goBack = () => router.back()
@@ -132,7 +112,7 @@ const goBack = () => router.back()
         >
            <div class="flex justify-between items-start mb-3">
               <span class="text-xs text-gray-500">{{ t('order.orderNo') }}: {{ item.orderNo }}</span>
-              <span class="text-xs text-gray-400">{{ item.createAt }}</span>
+              <span class="text-xs text-gray-400">{{ formatTime(item.createAt) }}</span>
            </div>
            
            <div class="flex gap-3">
@@ -149,14 +129,7 @@ const goBack = () => router.back()
                        <div class="text-xs text-gray-500 mt-1">{{ t('order.commission') }}: {{ item.commission }}</div>
                     </div>
                     
-                    <button 
-                      v-if="activeTab === 0"
-                      @click="handleRepurchase(item)"
-                      class="bg-red-500 text-white text-xs px-4 py-1.5 rounded-full active:bg-red-600 transition-colors"
-                    >
-                      {{ t('repurchase.submit') }}
-                    </button>
-                    <span v-else class="text-xs text-green-600 bg-green-50 px-2 py-1 rounded">
+                    <span v-if="activeTab === 1" class="text-xs text-green-600 bg-green-50 px-2 py-1 rounded">
                       {{ t('repurchase.statusCompleted') }}
                     </span>
                  </div>
