@@ -1,31 +1,23 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
-import { getAwaitPayOrders, getCompletedOrders, getRepurchaseOrders } from '@/api/mine'
+import { ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { getCompletedOrders, getRepurchaseOrders } from '@/api/mine'
 import type { ProductOrderResponse } from '@/api/mine'
-import { showToast } from 'vant'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 const router = useRouter()
-// const route = useRoute()
+const route = useRoute()
 
-// Tabs: 0 = I initiated, 1 = Participating, 2 = Completed
-const activeTab = ref(0)
+// Tabs: 1 = Participating, 2 = Completed
+const activeTab = ref(Number(route.query.tab === 'participating' ? 1 : (route.query.tab === 'completed' ? 2 : 1)))
 const loading = ref(false)
 const finished = ref(false)
 const list = ref<ProductOrderResponse[]>([])
 const page = ref(1)
 
-const tabs = computed(() => [
-  { title: t('order.initiated'), value: 0 },
-  { title: t('order.participating'), value: 1 },
-  { title: t('order.completed'), value: 2 }
-])
-
 // Map tab to API
 const fetchMap = {
-  0: getAwaitPayOrders,
   1: getRepurchaseOrders, // Assuming 'Participating' maps to repurchase/pending orders
   2: getCompletedOrders
 }
@@ -65,11 +57,6 @@ const onTabChange = () => {
 }
 
 const goBack = () => router.back()
-
-const handleBuy = (_item: ProductOrderResponse) => {
-  // Logic for 'Buy' button action
-  showToast('Proceed to payment...')
-}
 </script>
 
 <template>
@@ -94,7 +81,8 @@ const handleBuy = (_item: ProductOrderResponse) => {
       @change="onTabChange"
       class="sticky top-0 z-10"
     >
-      <van-tab v-for="tab in tabs" :key="tab.value" :title="tab.title" />
+      <van-tab :name="1" :title="t('order.participating')" />
+      <van-tab :name="2" :title="t('order.completed')" />
     </van-tabs>
 
     <!-- Content -->
@@ -149,14 +137,14 @@ const handleBuy = (_item: ProductOrderResponse) => {
             </div>
 
             <!-- Action Button -->
-            <div class="absolute bottom-4 right-4" v-if="activeTab === 0"> <!-- Show Buy button only on 'I initiated'? -->
+            <!-- <div class="absolute bottom-4 right-4" v-if="activeTab === 0"> 
                <button 
                  @click="handleBuy(item)"
                  class="bg-black text-white text-xs font-bold px-6 py-1.5 rounded-full"
                >
                  {{ t('order.buy') }}
                </button>
-            </div>
+            </div> -->
          </div>
        </van-list>
     </div>

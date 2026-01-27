@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { getFundDetails } from '@/api/mine'
 import type { MbrAssetsFlw } from '@/api/mine'
 import { useI18n } from 'vue-i18n'
+import dayjs from 'dayjs'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -11,6 +12,29 @@ const loading = ref(false)
 const finished = ref(false)
 const list = ref<MbrAssetsFlw[]>([])
 const page = ref(1)
+
+const formatDate = (timestamp: string | number) => {
+  if (!timestamp) return ''
+  return dayjs(Number(timestamp)).format('YYYY-MM-DD HH:mm:ss')
+}
+
+// Transaction Types Dictionary
+const getTypeName = (type: number) => {
+  const map: Record<number, string> = {
+    0: t('fund.type.0'), // 系统变更增加
+    1: t('fund.type.1'), // 系统变更减少
+    2: t('fund.type.2'), // 充值
+    3: t('fund.type.3'), // 提现
+    4: t('fund.type.4'), // 佣金
+    5: t('fund.type.5'), // 拼单付款
+    6: t('fund.type.6'), // 回购佣金
+    7: t('fund.type.7'), // 回购
+    8: t('fund.type.8'), // 提现回滚
+    9: t('fund.type.9'), // 积分增加
+    10: t('fund.type.10'), // 积分减少
+  }
+  return map[type] || t('fund.transaction')
+}
 
 const onLoad = async () => {
   loading.value = true
@@ -67,14 +91,14 @@ const goBack = () => router.back()
       >
         <div class="flex justify-between items-start mb-2">
            <div class="flex flex-col">
-              <span class="font-bold text-gray-800 text-sm">{{ item.remark || t('fund.transaction') }}</span>
-              <span class="text-xs text-gray-400 mt-1">{{ item.createAt }}</span>
+              <span class="font-bold text-gray-800 text-sm">{{ getTypeName(Number(item.type)) }}</span>
+              <span class="text-xs text-gray-400 mt-1">{{ formatDate(item.createAt) }}</span>
            </div>
            <span 
              class="font-bold text-lg"
-             :class="item.amount >= 0 ? 'text-red-600' : 'text-green-600'"
+             :class="Number(item.afterAmt) >= Number(item.beforeAmt) ? 'text-red-600' : 'text-green-600'"
            >
-             {{ item.amount >= 0 ? '+' : '' }}{{ item.amount }}
+             {{ Number(item.afterAmt) >= Number(item.beforeAmt) ? '+' : '-' }}{{ item.amount }}
            </span>
         </div>
         <div class="flex justify-between items-center text-xs text-gray-500 border-t border-gray-50 pt-2 mt-2">

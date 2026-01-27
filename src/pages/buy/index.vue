@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { getProductList } from '@/api/buy'
 import type { ProductInfo } from '@/api/buy'
 import { useProductStore } from '@/stores'
 
 const router = useRouter()
+const route = useRoute()
 const productStore = useProductStore()
 
 const goToProduct = (item: ProductInfo) => {
@@ -34,10 +35,19 @@ const loadData = async (isRefresh = false) => {
 
   try {
     loading.value = true
-    const res = await getProductList({
+    
+    // Check for brandId in query
+    const brandId = route.query.brandId
+    const params: any = {
       page: page.value,
       pageSize: pageSize.value,
-    })
+    }
+    
+    if (brandId) {
+      params.brandId = Number(brandId)
+    }
+
+    const res = await getProductList(params)
 
     if (res.code === '200') {
       const rows = res.data.list || []
@@ -80,8 +90,21 @@ const formatCurrency = (val: number | string) => {
 }
 
 const goBack = () => {
-  router.back()
+  if (route.query.brandId) {
+    router.push('/')
+  } else {
+    router.back()
+  }
 }
+
+onMounted(() => {
+  // van-pull-refresh doesn't automatically trigger refresh on mount unless v-model is true initially, 
+  // but we want controlled load.
+  // Actually van-list @load triggers initially if immediate-check is true (default).
+  // But let's be explicit if needed, or rely on van-list.
+  // Given previous code had onMounted call, let's restore it but check if list triggers it.
+  // Usually van-list triggers load immediately.
+})
 </script>
 
 <template>

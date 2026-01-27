@@ -5,6 +5,7 @@ import { saveBankInfo } from '@/api/mine'
 import { showToast, showLoadingToast, closeToast, showDialog } from 'vant'
 import { useI18n } from 'vue-i18n'
 import { useUserStore } from '@/stores/modules/user'
+import MD5 from 'crypto-js/md5'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -18,6 +19,7 @@ const isBound = computed(() => {
 
 // Edit mode
 const isEditing = ref(false)
+const showPassword = ref(false)
 
 const form = ref({
   actualName: '',
@@ -76,7 +78,10 @@ const onSubmit = async () => {
 
   showLoadingToast({ message: t('login.loading'), forbidClick: true })
   try {
-    const res = await saveBankInfo(form.value)
+    const res = await saveBankInfo({
+      ...form.value,
+      withdrawPassword: MD5(form.value.withdrawPassword).toString()
+    })
     closeToast()
     if (res.code === '200') {
       showToast({ type: 'success', message: t('bankCard.saveSuccess') })
@@ -178,12 +183,20 @@ const goBack = () => router.back()
 
          <div class="space-y-1">
             <label class="text-xs text-gray-500">{{ t('bankCard.withdrawPwd') }}</label>
-            <input
-              v-model="form.withdrawPassword"
-              type="password"
-              class="w-full bg-gray-50 rounded-lg px-3 py-2 text-sm"
-              :placeholder="t('bankCard.enterWithdrawPwd')"
-            />
+            <div class="relative">
+              <input
+                v-model="form.withdrawPassword"
+                :type="showPassword ? 'text' : 'password'"
+                class="w-full bg-gray-50 rounded-lg px-3 py-2 text-sm pr-10"
+                :placeholder="t('bankCard.enterWithdrawPwd')"
+              />
+              <div 
+                class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400"
+                @click="showPassword = !showPassword"
+              >
+                <div :class="showPassword ? 'i-carbon:view' : 'i-carbon:view-off'" class="text-lg"></div>
+              </div>
+            </div>
             <p class="text-xs text-gray-400 mt-1">{{ t('bankCard.withdrawPwdHint') }}</p>
          </div>
 

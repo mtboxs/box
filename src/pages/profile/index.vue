@@ -84,7 +84,7 @@ const menuItems = computed(() => [
 
 const orderActions = computed(() => [
   { icon: 'orders-o', title: t('profile.joinBuy'), path: '/profile/order-record?tab=participating' },
-  { icon: 'refund-o', title: t('profile.sellBack'), path: '/profile/order-record?tab=repurchase' },
+  { icon: 'refund-o', title: t('profile.sellBack'), path: '/profile/repurchase-record' },
   { icon: 'star-o', title: t('profile.collection'), path: '/profile/collection' },
 ])
 
@@ -227,7 +227,7 @@ const saveAvatar = async () => {
          </div>
 
          <!-- Primary Action Buttons Row -->
-         <div class="flex gap-4 mb-3">
+         <div class="flex gap-4 mb-1">
             <button
               @click="handleRecharge"
               class="flex-1 bg-[#E11D48] hover:bg-[#BE123C] text-white text-sm font-bold py-2.5 rounded-full shadow-md transition-colors"
@@ -239,22 +239,6 @@ const saveAvatar = async () => {
               class="flex-1 bg-[#E11D48] hover:bg-[#BE123C] text-white text-sm font-bold py-2.5 rounded-full shadow-md transition-colors"
             >
               {{ t('profile.withdraw') }}
-            </button>
-         </div>
-
-         <!-- Secondary Action Buttons Row -->
-         <div class="flex gap-4">
-            <button
-              @click="handleNavigate('/profile/recharge-record')"
-              class="flex-1 bg-[#E11D48] hover:bg-[#BE123C] text-white text-sm font-bold py-2.5 rounded-full shadow-md transition-colors"
-            >
-              {{ t('profile.rechargeRecord') }}
-            </button>
-            <button
-              @click="handleNavigate('/profile/withdraw-record')"
-              class="flex-1 bg-[#E11D48] hover:bg-[#BE123C] text-white text-sm font-bold py-2.5 rounded-full shadow-md transition-colors"
-            >
-              {{ t('profile.withdrawRecord') }}
             </button>
          </div>
       </div>

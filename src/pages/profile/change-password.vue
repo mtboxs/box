@@ -4,6 +4,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { modifyLoginPassword, modifyWithdrawPassword } from '@/api/mine'
 import { showToast, showLoadingToast, closeToast } from 'vant'
 import { useI18n } from 'vue-i18n'
+import MD5 from 'crypto-js/md5'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -48,8 +49,8 @@ const onSubmit = async () => {
   try {
     const apiFunc = isLogin ? modifyLoginPassword : modifyWithdrawPassword
     const res = await apiFunc({
-      newPassword: form.newPassword,
-      oldPassword: form.oldPassword // Optional depending on API requirement, usually required
+      newPassword: MD5(form.newPassword).toString(),
+      oldPassword: form.oldPassword ? MD5(form.oldPassword).toString() : ''
     })
 
     if (res.code === '200') {

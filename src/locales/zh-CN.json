@@ -727,11 +727,36 @@
     "mismatch": "密码不一致",
     "success": "密码已更新"
   },
+  "repurchase": {
+    "title": "回购记录",
+    "pending": "待回购",
+    "completed": "已回购",
+    "submit": "申请回购",
+    "confirmTitle": "确认回购",
+    "confirmMsg": "确定要申请回购该订单吗？",
+    "processing": "处理中...",
+    "success": "申请成功",
+    "failed": "申请失败",
+    "statusCompleted": "已回购"
+  },
   "fund": {
     "title": "资金明细",
     "transaction": "交易",
     "balance": "余额",
-    "no": "编号"
+    "no": "编号",
+    "type": {
+      "0": "系统变更增加",
+      "1": "系统变更减少",
+      "2": "充值",
+      "3": "提现",
+      "4": "佣金",
+      "5": "拼单付款",
+      "6": "回购佣金",
+      "7": "回购",
+      "8": "提现回滚",
+      "9": "积分增加",
+      "10": "积分减少"
+    }
   },
   "record": {
     "rechargeTitle": "充值记录",

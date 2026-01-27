@@ -3,7 +3,8 @@ import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { showToast } from 'vant'
 import { useI18n } from 'vue-i18n'
-import { getHomeData, grabbingOrder } from '@/api/home'
+import { getHomeData } from '@/api/home'
+import { buyProduct } from '@/api/buy'
 import type { ProductInfo } from '@/api/home'
 import { useProductStore } from '@/stores'
 
@@ -128,8 +129,9 @@ const loadProduct = async () => {
 }
 
 const handleBuy = async () => {
+  if (!product.value) return
   try {
-    const res = await grabbingOrder()
+    const res = await buyProduct({ id: product.value.id })
     if (res.code === '200') {
       showToast({ type: 'success', message: t('home.grabOrder') + ' Success' })
     } else {
@@ -221,7 +223,10 @@ onMounted(() => {
             </div>
             <span class="font-medium text-sm text-gray-800">{{ item.username }}</span>
           </div>
-          <button class="bg-black text-white text-xs px-4 py-1.5 rounded-full font-medium active:scale-95 transition-transform">
+          <button 
+            @click="handleBuy"
+            class="bg-black text-white text-xs px-4 py-1.5 rounded-full font-medium active:scale-95 transition-transform"
+          >
             ร่วมซื้อสินค้า
           </button>
         </div>

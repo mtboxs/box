@@ -84,7 +84,7 @@ export function grabbingOrder(): Promise<ApiResponse<ProductInfo>> {
 /**
  * Get Website Notice
  */
-export function getNotice(data: LangTypeOnlyRequest): Promise<ApiResponse<NoticeRecord>> {
+export function getNotice(data: LangTypeOnlyRequest): Promise<ApiResponse<NoticeRecord[]>> {
   return request.post('/home/notice.do', data, {
     headers: { 'Content-Type': 'application/json' },
   })

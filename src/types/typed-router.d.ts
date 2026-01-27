@@ -198,6 +198,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/profile/repurchase-record': RouteRecordInfo<
+      '/profile/repurchase-record',
+      '/profile/repurchase-record',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/profile/withdraw-record': RouteRecordInfo<
       '/profile/withdraw-record',
       '/profile/withdraw-record',
@@ -491,6 +498,12 @@ declare module 'vue-router/auto-routes' {
     'src/pages/profile/recharge-record.vue': {
       routes:
         | '/profile/recharge-record'
+      views:
+        | never
+    }
+    'src/pages/profile/repurchase-record.vue': {
+      routes:
+        | '/profile/repurchase-record'
       views:
         | never
     }

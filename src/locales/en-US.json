@@ -208,11 +208,36 @@
     "mismatch": "Passwords do not match",
     "success": "Password updated"
   },
+  "repurchase": {
+    "title": "Repurchase Record",
+    "pending": "To be repurchased",
+    "completed": "Has been repurchased",
+    "submit": "Repurchase",
+    "confirmTitle": "Confirm Repurchase",
+    "confirmMsg": "Are you sure you want to repurchase this order?",
+    "processing": "Processing...",
+    "success": "Success",
+    "failed": "Failed",
+    "statusCompleted": "Repurchased"
+  },
   "fund": {
     "title": "Details",
     "transaction": "Transaction",
     "balance": "Balance",
-    "no": "No."
+    "no": "No.",
+    "type": {
+      "0": "System Increase",
+      "1": "System Reduce",
+      "2": "Top Up",
+      "3": "Withdraw",
+      "4": "Commission",
+      "5": "Order Payment",
+      "6": "Repurchase Commission",
+      "7": "Repurchase",
+      "8": "Withdraw Rollback",
+      "9": "Points Increase",
+      "10": "Points Reduce"
+    }
   },
   "record": {
     "rechargeTitle": "Top Up Record",

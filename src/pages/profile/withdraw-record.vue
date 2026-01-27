@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { getWithdrawRecords } from '@/api/mine'
 import type { MbrWithdrawRecord } from '@/api/mine'
 import { useI18n } from 'vue-i18n'
+import dayjs from 'dayjs'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -11,6 +12,20 @@ const loading = ref(false)
 const finished = ref(false)
 const list = ref<MbrWithdrawRecord[]>([])
 const page = ref(1)
+
+const formatDate = (timestamp: string | number) => {
+  if (!timestamp) return ''
+  return dayjs(Number(timestamp)).format('YYYY-MM-DD HH:mm:ss')
+}
+
+const getStatusText = (status: string) => {
+  const map: Record<string, string> = {
+    '0': t('record.pending'),
+    '1': t('record.success'),
+    '2': t('record.failed')
+  }
+  return map[status] || t('record.pending')
+}
 
 const onLoad = async () => {
   loading.value = true
@@ -65,21 +80,24 @@ const goBack = () => router.back()
         :key="item.id"
         class="bg-white p-4 rounded-lg shadow-sm mb-3"
       >
-        <div class="flex justify-between items-center mb-2">
-          <span class="font-bold text-gray-800">{{ item.recNo }}</span>
-          <span class="text-xs text-gray-500">{{ item.createAt }}</span>
+        <div class="flex justify-between items-start mb-4">
+          <span class="font-bold text-gray-800 break-all pr-4">{{ item.recNo }}</span>
+          <div class="flex flex-col items-end min-w-[80px]">
+             <span class="text-xs text-gray-400">{{ formatDate(item.createAt).split(' ')[0] }}</span>
+             <span class="text-xs text-gray-400">{{ formatDate(item.createAt).split(' ')[1] }}</span>
+          </div>
         </div>
         <div class="flex justify-between items-center">
           <span class="text-green-600 font-bold text-lg">-{{ item.amount }}</span>
           <span 
             class="text-xs px-2 py-1 rounded"
             :class="{
-              'bg-yellow-100 text-yellow-700': item.status === '0',
-              'bg-green-100 text-green-700': item.status === '1',
-              'bg-red-100 text-red-700': item.status === '2'
+              'text-yellow-600': item.status === '0',
+              'text-green-600': item.status === '1',
+              'text-red-600': item.status === '2'
             }"
           >
-            {{ item.status === '1' ? t('record.success') : (item.status === '2' ? t('record.failed') : t('record.pending')) }}
+            {{ getStatusText(item.status) }}
           </span>
         </div>
       </div>

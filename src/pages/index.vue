@@ -19,7 +19,7 @@ const goToProduct = (prod: ProductInfo) => {
 const brands = ref<BrandInfo[]>([])
 const products = ref<ProductInfo[]>([])
 const loading = ref(false)
-const showNotice = ref(false)
+const showNotice = ref(true)
 const noticeContent = ref('')
 const showLangSheet = ref(false)
 
@@ -84,13 +84,36 @@ products.value = res.data.list || res.data.products || []
 
 const checkNotice = async () => {
   try {
-    const res = await getNotice({ langType: '1' }) 
-    if (res.code === '200' && res.data?.richTxt) {
-      noticeContent.value = res.data.richTxt
+    // Pass '1' for English, '2' for Thai, '3' for Chinese based on locale if needed, 
+    // or just pass current locale string and let backend handle or default to '1'
+    // Based on API analysis, it seems to expect specific langType.
+    // For now using '1' as default or mapping.
+    let langType = '1'
+    if (locale.value.startsWith('th')) langType = '2'
+    if (locale.value.startsWith('zh')) langType = '3'
+    
+    const res = await getNotice({ langType }) 
+    
+    // Check if data is array or object based on actual response
+    // API def updated to array, but let's be safe
+    const data = res.data
+    let content = ''
+    
+    if (Array.isArray(data) && data.length > 0) {
+      content = data[0].richTxt
+    } else if (data && !Array.isArray(data) && (data as any).richTxt) {
+      content = (data as any).richTxt
+    }
+
+    if (res.code === '200' && content) {
+      noticeContent.value = content
       showNotice.value = true
+    } else {
+      showNotice.value = false
     }
   } catch (error) {
     console.error('Failed to load notice', error)
+    showNotice.value = false
   }
 }
 
@@ -192,7 +215,7 @@ const banners = [
       <div class="mb-6">
         <h2 class="text-base font-bold text-gray-900 mb-4">{{ t('home.crossBorderPartner') }}</h2>
         <div class="grid grid-cols-4 gap-4">
-          <div v-for="brand in brands" :key="brand.id" class="flex flex-col items-center justify-center">
+          <div v-for="brand in brands" :key="brand.id" class="flex flex-col items-center justify-center cursor-pointer" @click="router.push(`/buy?brandId=${brand.id}`)">
              <div class="w-16 h-16 rounded-lg bg-gray-50 shadow-sm flex items-center justify-center p-2 border border-gray-100 overflow-hidden relative">
                 <img :src="brand.brandLogoUrl" class="w-full h-full object-contain mix-blend-multiply" :alt="brand.brandName" />
              </div>
@@ -326,23 +349,25 @@ const banners = [
     <van-popup 
       v-model:show="showNotice" 
       round 
-      class="w-[85vw] max-w-sm !bg-transparent overflow-visible"
+      class="w-[80vw] !bg-transparent overflow-visible flex flex-col items-center"
+      :close-on-click-overlay="false"
     >
-      <div class="bg-white rounded-2xl overflow-hidden shadow-2xl relative">
-         <div class="p-6 text-center">
-            <h3 class="text-lg font-bold mb-4">{{ t('home.notice') }}</h3>
-            <div class="text-sm text-gray-600 text-left max-h-[50vh] overflow-y-auto rich-text-content" v-html="noticeContent"></div>
+      <div class="bg-white rounded-[20px] w-full min-h-[200px] overflow-hidden shadow-2xl relative mb-8 flex flex-col justify-center" v-if="noticeContent">
+         <div class="px-8 py-10 flex items-center justify-center">
+            <!-- <h3 class="text-xl font-bold mb-6 text-center text-black">{{ t('home.notice') }}</h3> -->
+            <div class="text-xl font-medium text-black leading-relaxed rich-text-content text-center w-full" v-html="noticeContent"></div>
          </div>
+      </div>
+      <div v-else class="flex justify-center items-center p-4 bg-white rounded-xl mb-6">
+         <van-loading type="spinner" color="#000" />
+      </div>
 
-         <div class="p-4 bg-gray-50 border-t border-gray-100 flex justify-center">
-             <button
-               @click="showNotice = false"
-               class="bg-gradient-to-b from-gray-700 to-black text-white px-8 py-2 rounded-full font-bold shadow-lg text-sm flex items-center gap-2"
-             >
-                <div class="i-carbon:close-filled"></div>
-                {{ t('home.grabOrder') }}
-             </button>
-         </div>
+      <!-- Close Button -->
+      <div 
+        @click="showNotice = false"
+        class="w-12 h-12 rounded-full border-2 border-white flex items-center justify-center cursor-pointer active:scale-95 transition-transform bg-black/20 backdrop-blur-sm"
+      >
+        <div class="i-carbon:close text-white text-2xl"></div>
       </div>
     </van-popup>
 
