@@ -77,9 +77,6 @@ async function register() {
         <div class="w-24 h-24 mx-auto rounded-full bg-[#A8E6F0] flex items-center justify-center overflow-hidden mb-3 border-4 border-white shadow-sm relative z-10">
           <img src="/logo.jpg" class="w-full h-full object-cover" />
         </div>
-        <h1 class="text-3xl font-bold tracking-tight mb-2">
-          <span class="text-[#1E1E50]">Presta</span><span class="text-[#E91E63]">Shop</span>
-        </h1>
         <p class="text-sm text-gray-500">
           Join us and start earning
         </p>

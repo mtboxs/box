@@ -6,9 +6,16 @@ import type { BrandInfo, ProductInfo } from '@/api/home'
 import { showToast } from 'vant'
 import { locale } from '@/utils/i18n'
 import { useI18n } from 'vue-i18n'
+import { useProductStore } from '@/stores'
 
 const { t } = useI18n()
 const router = useRouter()
+const productStore = useProductStore()
+
+const goToProduct = (prod: ProductInfo) => {
+  productStore.setCurrentProduct(prod)
+  router.push(`/product/${prod.id}`)
+}
 const brands = ref<BrandInfo[]>([])
 const products = ref<ProductInfo[]>([])
 const loading = ref(false)
@@ -61,7 +68,8 @@ const loadData = async () => {
         brands.value = res.data.brands
       }
       
-      products.value = res.data.products || []
+      // API returns data.list, not data.products
+products.value = res.data.list || res.data.products || []
     } else {
        // Fallback to mock brands even if API fails/returns other code, for dev preview
        brands.value = mockBrands
@@ -259,7 +267,7 @@ const banners = [
 
     <!-- Product List -->
     <div class="px-4 pb-20 space-y-3 bg-gray-50 pt-2">
-       <div v-for="prod in products" :key="prod.id" class="bg-white rounded-xl p-3 flex gap-4 shadow-sm border border-gray-100 active:bg-gray-50 transition-colors cursor-pointer" @click="router.push(`/product/${prod.id}`)">
+       <div v-for="prod in products" :key="prod.id" class="bg-white rounded-xl p-3 flex gap-4 shadow-sm border border-gray-100 active:bg-gray-50 transition-colors cursor-pointer" @click="goToProduct(prod)">
           <!-- Product Image -->
           <div class="w-24 h-24 rounded-lg bg-gray-50 flex-shrink-0 overflow-hidden">
              <img :src="prod.pic1Url" class="w-full h-full object-cover" :alt="prod.productName" />

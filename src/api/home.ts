@@ -38,8 +38,14 @@ export interface ProductInfo {
 }
 
 export interface HomeDataResponse {
-  brands: BrandInfo[]
-  products: ProductInfo[]
+  brands?: BrandInfo[]
+  products?: ProductInfo[]
+  // Paginated list response format
+  page?: number
+  pageSize?: number
+  total?: number
+  totalPage?: number
+  list?: ProductInfo[]
 }
 
 export interface NoticeRecord {

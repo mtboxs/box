@@ -1,24 +1,32 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { showToast, showLoadingToast, closeToast } from 'vant'
-import { getProductList, buyProduct } from '@/api/buy'
+import { getProductList } from '@/api/buy'
 import type { ProductInfo } from '@/api/buy'
+import { useProductStore } from '@/stores'
 
 const router = useRouter()
+const productStore = useProductStore()
+
+const goToProduct = (item: ProductInfo) => {
+  productStore.setCurrentProduct(item as any)
+  router.push(`/product/${item.id}`)
+}
 const loading = ref(false)
 const finished = ref(false)
 const refreshing = ref(false)
 const list = ref<ProductInfo[]>([])
 const page = ref(1)
 const pageSize = ref(10)
-
-onMounted(() => {
-  // onRefresh() is called by van-pull-refresh automatically on mount or we trigger load
-  loadData()
-})
+const isRequesting = ref(false) // 防止重复请求
 
 const loadData = async (isRefresh = false) => {
+  // 防止重复请求
+  if (isRequesting.value) return
+
+  // 立即设置标志，防止后续调用
+  isRequesting.value = true
+
   if (isRefresh) {
     page.value = 1
     finished.value = false
@@ -53,6 +61,7 @@ const loadData = async (isRefresh = false) => {
   } finally {
     loading.value = false
     refreshing.value = false
+    isRequesting.value = false
   }
 }
 
@@ -63,37 +72,6 @@ const onRefresh = () => {
 const onLoad = () => {
   if (!refreshing.value) {
     loadData()
-  }
-}
-
-const handleBuy = async (item: ProductInfo) => {
-  showLoadingToast({
-    message: 'Processing...',
-    forbidClick: true,
-  })
-
-  try {
-    const res = await buyProduct({ id: item.id })
-    if (res.code === '200') {
-      closeToast()
-      showToast({
-        type: 'success',
-        message: 'Success',
-      })
-      // Optional: Refresh list or update item status
-    } else {
-      closeToast()
-      showToast({
-        type: 'fail',
-        message: res.msg || 'Failed',
-      })
-    }
-  } catch (error) {
-    closeToast()
-    showToast({
-      type: 'fail',
-      message: 'Network Error',
-    })
   }
 }
 
@@ -130,7 +108,7 @@ const goBack = () => {
             v-for="item in list" 
             :key="item.id" 
             class="bg-white rounded-xl p-3 flex gap-3 shadow-lg relative overflow-hidden active:bg-gray-50 transition-colors cursor-pointer"
-            @click="router.push(`/product/${item.id}`)"
+            @click="goToProduct(item)"
           >
             <!-- Product Image -->
             <div class="w-28 h-28 bg-gray-50 rounded-lg flex-shrink-0 relative overflow-hidden">
@@ -171,7 +149,7 @@ const goBack = () => {
             <!-- Share/Action Button (Absolute positioned bottom-right or flex) -->
             <div class="absolute bottom-3 right-3">
                <button 
-                 @click.stop="router.push(`/product/${item.id}`)"
+                 @click.stop="goToProduct(item)"
                  class="w-8 h-8 bg-black rounded-lg flex items-center justify-center active:scale-95 transition-transform"
                >
                   <div class="i-carbon:arrow-up-right text-white text-sm font-bold"></div>

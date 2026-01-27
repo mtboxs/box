@@ -5,10 +5,12 @@ import { showToast } from 'vant'
 import { useI18n } from 'vue-i18n'
 import { getHomeData, grabbingOrder } from '@/api/home'
 import type { ProductInfo } from '@/api/home'
+import { useProductStore } from '@/stores'
 
 const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
+const productStore = useProductStore()
 const product = ref<ProductInfo | null>(null)
 const loading = ref(false)
 
@@ -66,43 +68,60 @@ const generateRandomActivity = () => {
 }
 
 const loadProduct = async () => {
-  const id = Number(route.params.id)
+  const id = Number((route.params as any).id)
   if (!id) return
 
+  // Check if product data is in store (from list page navigation)
+  const storeData = productStore.currentProduct
+  if (storeData && storeData.id === id) {
+    product.value = storeData
+    return
+  }
+
   loading.value = true
+
+  const createFallbackProduct = () => ({
+    id,
+    brandId: 0,
+    productName: 'Product ' + id,
+    productDesc: 'Description for product ' + id,
+    pic1Url: 'https://via.placeholder.com/300',
+    pic2Url: '',
+    pic3Url: '',
+    labelPrice: 1000,
+    orderPrice: 500,
+    commission: 50,
+    orderNo: 'ORD-' + id,
+    specialOffer: true,
+    disabled: false,
+    createBy: '',
+    createAt: '',
+    updateAt: ''
+  })
+
   try {
     // In a real app, we would fetch product detail by ID.
     // Here we fetch home data and find the product from the list,
     // or if not found, we use a mock one based on the ID.
     const res = await getHomeData()
-    if (res.code === '200' && res.data.products) {
-      const found = res.data.products.find(p => p.id === id)
+    // API returns data.list, not data.products
+    const productList = res.data.list || res.data.products
+    if (res.code === '200' && productList) {
+      const found = productList.find((p: any) => p.id === id)
       if (found) {
         product.value = found
       } else {
         // Fallback mock if not found in list (e.g. refreshed page)
-        product.value = {
-          id,
-          brandId: 0,
-          productName: 'Product ' + id,
-          productDesc: 'Description for product ' + id,
-          pic1Url: 'https://via.placeholder.com/300',
-          pic2Url: '',
-          pic3Url: '',
-          labelPrice: 1000,
-          orderPrice: 500,
-          commission: 50,
-          orderNo: 'ORD-' + id,
-          specialOffer: true,
-          disabled: false,
-          createBy: '',
-          createAt: '',
-          updateAt: ''
-        }
+        product.value = createFallbackProduct()
       }
+    } else {
+      // API returned non-200 or no products, use fallback
+      product.value = createFallbackProduct()
     }
   } catch (error) {
     console.error(error)
+    // Network error, use fallback
+    product.value = createFallbackProduct()
   } finally {
     loading.value = false
   }

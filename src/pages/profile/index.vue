@@ -127,6 +127,17 @@ const handleAvatarClick = () => {
   showAvatarSelector.value = true
 }
 
+import { useClipboard } from '@vueuse/core'
+
+const { copy } = useClipboard()
+
+const handleCopyInviteCode = () => {
+  if (userInfo.value.inviteCode) {
+    copy(userInfo.value.inviteCode)
+    showToast(t('profile.copySuccess'))
+  }
+}
+
 const selectAvatar = (url: string) => {
   selectedAvatar.value = url
 }
@@ -183,8 +194,9 @@ const saveAvatar = async () => {
            <div class="bg-white text-red-600 px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm">
              {{ vipLevelDisplay }}
            </div>
-           <div class="flex items-center gap-1 text-[10px] text-gray-300 mt-1">
+           <div class="flex items-center gap-1 text-[10px] text-gray-300 mt-1" @click="handleCopyInviteCode">
              <span>{{ t('profile.inviteCode') }}: {{ userInfo.inviteCode || '---' }}</span>
+             <div class="i-carbon:copy text-gray-400 text-xs ml-1 cursor-pointer hover:text-white transition-colors"></div>
            </div>
            <div class="text-[10px] text-gray-300">
              {{ t('profile.creditScore') }}: {{ userInfo.integral || 100 }}
