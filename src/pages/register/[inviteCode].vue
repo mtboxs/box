@@ -75,7 +75,7 @@ async function register() {
       <div class="mb-6 text-center">
         <!-- Mascot Circle -->
         <div class="w-24 h-24 mx-auto rounded-full bg-[#A8E6F0] flex items-center justify-center overflow-hidden mb-3 border-4 border-white shadow-sm relative z-10">
-          <img src="/logo.jpg" class="w-full h-full object-cover" />
+          <img src="@/assets/images/logo.jpg" class="w-full h-full object-cover" />
         </div>
         <p class="text-sm text-gray-500">
           Join us and start earning

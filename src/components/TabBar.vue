@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { rootRouteList } from '@/config/routes'
 import { useI18n } from 'vue-i18n'
+import iconHomeActive from '@/assets/images/icon-home-active.png'
+import iconHome from '@/assets/images/icon-home.png'
+import iconServiceActive from '@/assets/images/icon-service-active.png'
+import iconService from '@/assets/images/icon-service.png'
+import iconActivityActive from '@/assets/images/icon-activity-active.png'
+import iconActivity from '@/assets/images/icon-activity.png'
+import iconMeActive from '@/assets/images/icon-me-active.png'
+import iconMe from '@/assets/images/icon-me.png'
 
 const { t } = useI18n()
 const active = ref(0)
@@ -15,20 +23,20 @@ const show = computed(() => {
 
 const icons = {
   home: {
-    active: new URL('@/assets/images/icon-home-active.png', import.meta.url).href,
-    inactive: new URL('@/assets/images/icon-home.png', import.meta.url).href,
+    active: iconHomeActive,
+    inactive: iconHome,
   },
   buy: {
-    active: new URL('@/assets/images/icon-service-active.png', import.meta.url).href,
-    inactive: new URL('@/assets/images/icon-service.png', import.meta.url).href,
+    active: iconServiceActive,
+    inactive: iconService,
   },
   activity: {
-    active: new URL('@/assets/images/icon-activity-active.png', import.meta.url).href,
-    inactive: new URL('@/assets/images/icon-activity.png', import.meta.url).href,
+    active: iconActivityActive,
+    inactive: iconActivity,
   },
   profile: {
-    active: new URL('@/assets/images/icon-me-active.png', import.meta.url).href,
-    inactive: new URL('@/assets/images/icon-me.png', import.meta.url).href,
+    active: iconMeActive,
+    inactive: iconMe,
   },
 }
 </script>

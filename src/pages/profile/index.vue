@@ -5,6 +5,14 @@ import { useUserStore } from '@/stores/modules/user'
 import { modifyAvatar } from '@/api/mine'
 import { showToast, showDialog } from 'vant'
 import { useI18n } from 'vue-i18n'
+import iconRecharge from '@/assets/images/icon-record-recharge.png'
+import iconWithdraw from '@/assets/images/icon-record-withdraw.png'
+import iconDetails from '@/assets/images/icon-details.png'
+import iconCard from '@/assets/images/icon-card.png'
+import iconPassword from '@/assets/images/icon-password.png'
+import iconOrderPay from '@/assets/images/icon-order-pay.png'
+import iconOrderRepurchase from '@/assets/images/icon-order-repurchase.png'
+import iconCollection from '@/assets/images/icon-collection.png'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -62,17 +70,17 @@ const handleWithdrawSelect = () => {
 }
 
 const menuItems = computed(() => [
-  { icon: new URL('@/assets/images/icon-record-recharge.png', import.meta.url).href, title: t('profile.rechargeRecord'), path: '/profile/recharge-record' },
-  { icon: new URL('@/assets/images/icon-record-withdraw.png', import.meta.url).href, title: t('profile.withdrawRecord'), path: '/profile/withdraw-record' },
-  { icon: new URL('@/assets/images/icon-details.png', import.meta.url).href, title: t('profile.details'), path: '/profile/fund-details' },
-  { icon: new URL('@/assets/images/icon-card.png', import.meta.url).href, title: t('profile.bankCard'), path: '/profile/bank-card', badge: !hasBankCard.value ? t('profile.notBound') : '' },
-  { icon: new URL('@/assets/images/icon-password.png', import.meta.url).href, title: t('profile.changePassword'), path: '/profile/change-password' },
+  { icon: iconRecharge, title: t('profile.rechargeRecord'), path: '/profile/recharge-record' },
+  { icon: iconWithdraw, title: t('profile.withdrawRecord'), path: '/profile/withdraw-record' },
+  { icon: iconDetails, title: t('profile.details'), path: '/profile/fund-details' },
+  { icon: iconCard, title: t('profile.bankCard'), path: '/profile/bank-card', badge: !hasBankCard.value ? t('profile.notBound') : '' },
+  { icon: iconPassword, title: t('profile.changePassword'), path: '/profile/change-password' },
 ])
 
 const orderActions = computed(() => [
-  { icon: new URL('@/assets/images/icon-order-pay.png', import.meta.url).href, title: t('profile.joinBuy'), path: '/profile/order-record?tab=participating' },
-  { icon: new URL('@/assets/images/icon-order-repurchase.png', import.meta.url).href, title: t('profile.sellBack'), path: '/profile/repurchase-record' },
-  { icon: new URL('@/assets/images/icon-collection.png', import.meta.url).href, title: t('profile.collection'), path: '/profile/collection' },
+  { icon: iconOrderPay, title: t('profile.joinBuy'), path: '/profile/order-record?tab=participating' },
+  { icon: iconOrderRepurchase, title: t('profile.sellBack'), path: '/profile/repurchase-record' },
+  { icon: iconCollection, title: t('profile.collection'), path: '/profile/collection' },
 ])
 
 const handleNavigate = (path?: string) => {

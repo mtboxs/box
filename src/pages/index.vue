@@ -8,6 +8,14 @@ import { locale } from '@/utils/i18n'
 import { useI18n } from 'vue-i18n'
 import { useProductStore } from '@/stores'
 
+import banner1 from '@/assets/images/banner1.jpg'
+import banner2 from '@/assets/images/banner2.jpg'
+import banner3 from '@/assets/images/banner3.jpg'
+import banner4 from '@/assets/images/banner4.jpg'
+import iconGouwuche from '@/assets/images/gouwuche.png'
+import iconKefu from '@/assets/images/kefu.png'
+import iconMe from '@/assets/images/icon-me.png'
+
 const { t } = useI18n()
 const router = useRouter()
 const productStore = useProductStore()
@@ -158,10 +166,10 @@ const mockBrands: BrandInfo[] = [
 
 // Mock Banners
 const banners = [
-  new URL('@/assets/images/banner1.jpg', import.meta.url).href,
-  new URL('@/assets/images/banner2.jpg', import.meta.url).href,
-  new URL('@/assets/images/banner3.jpg', import.meta.url).href,
-  new URL('@/assets/images/banner4.jpg', import.meta.url).href,
+  banner1,
+  banner2,
+  banner3,
+  banner4,
 ]
 
 </script>
@@ -185,13 +193,13 @@ const banners = [
       
       <div class="absolute top-4 right-4 flex gap-2 z-50">
         <div class="bg-white/80 p-1.5 rounded-full backdrop-blur-sm cursor-pointer z-50 pointer-events-auto" @click.stop="router.push('/profile/order-record?tab=participating')">
-           <img src="@/assets/images/gouwuche.png" class="w-5 h-5 pointer-events-none" />
+           <img :src="iconGouwuche" class="w-5 h-5 pointer-events-none" />
         </div>
         <div class="bg-white/80 p-1.5 rounded-full backdrop-blur-sm cursor-pointer z-50 pointer-events-auto" @click.stop="router.push('/profile/chat')">
-           <img src="@/assets/images/kefu.png" class="w-5 h-5 pointer-events-none" />
+           <img :src="iconKefu" class="w-5 h-5 pointer-events-none" />
         </div>
         <div class="bg-white/80 p-1.5 rounded-full backdrop-blur-sm cursor-pointer z-50 pointer-events-auto" @click.stop="router.push('/profile')">
-           <img src="@/assets/images/icon-me.png" class="w-5 h-5 pointer-events-none" />
+           <img :src="iconMe" class="w-5 h-5 pointer-events-none" />
         </div>
         <div
           class="bg-white/90 px-2 py-1 rounded text-xs font-bold text-red-600 flex items-center cursor-pointer active:scale-95 transition-transform z-50 pointer-events-auto"
