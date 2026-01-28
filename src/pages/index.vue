@@ -208,11 +208,6 @@ const banners = [
           {{ currentLang }}
         </div>
       </div>
-
-      <div class="absolute inset-0 flex flex-col items-center justify-center text-white z-0 pt-8 pointer-events-none">
-        <h1 class="text-5xl font-serif italic mb-2 tracking-wide text-shadow">Presta Shop</h1>
-        <div class="text-3xl font-light tracking-[0.2em] uppercase">Garcia</div>
-      </div>
     </div>
 
     <!-- Main Content Container -->
