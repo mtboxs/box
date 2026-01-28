@@ -15,20 +15,20 @@ const show = computed(() => {
 
 const icons = {
   home: {
-    active: 'https://www.thprestashop.store/static/index/red/images/icon-home-active.png',
-    inactive: 'https://www.thprestashop.store/static/index/red/images/icon-home.png',
+    active: new URL('@/assets/images/icon-home-active.png', import.meta.url).href,
+    inactive: new URL('@/assets/images/icon-home.png', import.meta.url).href,
   },
   buy: {
-    active: 'https://www.thprestashop.store/static/index/red/images/icon-service-active.png',
-    inactive: 'https://www.thprestashop.store/static/index/red/images/icon-service.png',
+    active: new URL('@/assets/images/icon-service-active.png', import.meta.url).href,
+    inactive: new URL('@/assets/images/icon-service.png', import.meta.url).href,
   },
   activity: {
-    active: 'https://www.thprestashop.store/static/index/red/images/icon-activity-active.png',
-    inactive: 'https://www.thprestashop.store/static/index/red/images/icon-activity.png',
+    active: new URL('@/assets/images/icon-activity-active.png', import.meta.url).href,
+    inactive: new URL('@/assets/images/icon-activity.png', import.meta.url).href,
   },
   profile: {
-    active: 'https://www.thprestashop.store/static/index/red/images/icon-me-active.png',
-    inactive: 'https://www.thprestashop.store/static/index/red/images/icon-me.png',
+    active: new URL('@/assets/images/icon-me-active.png', import.meta.url).href,
+    inactive: new URL('@/assets/images/icon-me.png', import.meta.url).href,
   },
 }
 </script>

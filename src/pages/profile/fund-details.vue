@@ -98,11 +98,11 @@ const goBack = () => router.back()
              class="font-bold text-lg"
              :class="Number(item.afterAmt) >= Number(item.beforeAmt) ? 'text-red-600' : 'text-green-600'"
            >
-             {{ Number(item.afterAmt) >= Number(item.beforeAmt) ? '+' : '-' }}{{ item.amount }}
+             {{ Number(item.afterAmt) >= Number(item.beforeAmt) ? '+' : '-' }}{{ item.amount }}$
            </span>
         </div>
         <div class="flex justify-between items-center text-xs text-gray-500 border-t border-gray-50 pt-2 mt-2">
-           <span>{{ t('fund.balance') }}: {{ item.afterAmt }}</span>
+           <span>{{ t('fund.balance') }}: {{ item.afterAmt }}$</span>
            <span>{{ t('fund.no') }} {{ item.flwNo }}</span>
         </div>
       </div>

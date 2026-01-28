@@ -195,11 +195,11 @@ onMounted(() => {
         </h1>
         <div class="flex items-center justify-between mb-2">
           <div class="flex items-baseline gap-2">
-            <span class="text-2xl font-bold text-red-600">{{ formatCurrency(product.orderPrice) }}฿</span>
-            <span class="text-sm text-gray-400 line-through">{{ formatCurrency(product.labelPrice) }}฿</span>
+            <span class="text-2xl font-bold text-red-600">{{ formatCurrency(product.orderPrice) }}$</span>
+            <span class="text-sm text-gray-400 line-through">{{ formatCurrency(product.labelPrice) }}$</span>
           </div>
           <div class="bg-black text-[#FFD700] text-xs px-3 py-1 rounded-full font-medium">
-            {{ t('home.commission') }}: {{ formatCurrency(product.commission) }}฿
+            {{ t('home.commission') }}: {{ formatCurrency(product.commission) }}$
           </div>
         </div>
       </div>

@@ -88,7 +88,7 @@ const goBack = () => router.back()
           </div>
         </div>
         <div class="flex justify-between items-center">
-          <span class="text-red-600 font-bold text-lg">+{{ item.amount }}</span>
+          <span class="text-red-600 font-bold text-lg">+{{ item.amount }}$</span>
           <span 
             class="text-xs px-2 py-1 rounded"
             :class="{

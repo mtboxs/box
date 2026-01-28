@@ -189,8 +189,8 @@ const formatTime = (time: string | number) => {
                   <div class="mt-2">
                      <div class="flex items-center justify-between">
                        <div class="flex items-baseline gap-2">
-                          <span class="text-red-600 font-bold text-lg">{{ item.orderPrice }}฿</span>
-                          <span class="text-gray-400 text-xs line-through">{{ item.labelPrice }}฿</span>
+                          <span class="text-red-600 font-bold text-lg">{{ item.orderPrice }}$</span>
+                          <span class="text-gray-400 text-xs line-through">{{ item.labelPrice }}$</span>
                        </div>
                        
                        <!-- Buttons -->
@@ -212,7 +212,7 @@ const formatTime = (time: string | number) => {
                      </div>
                      
                      <div class="inline-block bg-gray-100 rounded px-2 py-0.5 mt-2">
-                        <span class="text-[10px] text-gray-600 font-medium">{{ t('order.commission') }}: {{ item.commission }}฿</span>
+                        <span class="text-[10px] text-gray-600 font-medium">{{ t('order.commission') }}: {{ item.commission }}$</span>
                      </div>
                   </div>
                </div>

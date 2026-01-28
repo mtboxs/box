@@ -125,8 +125,8 @@ const goBack = () => router.back()
                  
                  <div class="flex justify-between items-end mt-2">
                     <div>
-                       <div class="text-red-600 font-bold text-base">{{ item.orderPrice }}</div>
-                       <div class="text-xs text-gray-500 mt-1">{{ t('order.commission') }}: {{ item.commission }}</div>
+                       <div class="text-red-600 font-bold text-base">{{ item.orderPrice }}$</div>
+                       <div class="text-xs text-gray-500 mt-1">{{ t('order.commission') }}: {{ item.commission }}$</div>
                     </div>
                     
                     <span v-if="activeTab === 1" class="text-xs text-green-600 bg-green-50 px-2 py-1 rounded">

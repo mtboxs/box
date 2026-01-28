@@ -62,17 +62,17 @@ const handleWithdrawSelect = () => {
 }
 
 const menuItems = computed(() => [
-  { icon: 'balance-list-o', title: t('profile.rechargeRecord'), path: '/profile/recharge-record' },
-  { icon: 'bill-o', title: t('profile.withdrawRecord'), path: '/profile/withdraw-record' },
-  { icon: 'gold-coin-o', title: t('profile.details'), path: '/profile/fund-details' },
-  { icon: 'card', title: t('profile.bankCard'), path: '/profile/bank-card', badge: !hasBankCard.value ? t('profile.notBound') : '' },
-  { icon: 'lock', title: t('profile.changePassword'), path: '/profile/change-password' },
+  { icon: new URL('@/assets/images/icon-record-recharge.png', import.meta.url).href, title: t('profile.rechargeRecord'), path: '/profile/recharge-record' },
+  { icon: new URL('@/assets/images/icon-record-withdraw.png', import.meta.url).href, title: t('profile.withdrawRecord'), path: '/profile/withdraw-record' },
+  { icon: new URL('@/assets/images/icon-details.png', import.meta.url).href, title: t('profile.details'), path: '/profile/fund-details' },
+  { icon: new URL('@/assets/images/icon-card.png', import.meta.url).href, title: t('profile.bankCard'), path: '/profile/bank-card', badge: !hasBankCard.value ? t('profile.notBound') : '' },
+  { icon: new URL('@/assets/images/icon-password.png', import.meta.url).href, title: t('profile.changePassword'), path: '/profile/change-password' },
 ])
 
 const orderActions = computed(() => [
-  { icon: 'orders-o', title: t('profile.joinBuy'), path: '/profile/order-record?tab=participating' },
-  { icon: 'refund-o', title: t('profile.sellBack'), path: '/profile/repurchase-record' },
-  { icon: 'star-o', title: t('profile.collection'), path: '/profile/collection' },
+  { icon: new URL('@/assets/images/icon-order-pay.png', import.meta.url).href, title: t('profile.joinBuy'), path: '/profile/order-record?tab=participating' },
+  { icon: new URL('@/assets/images/icon-order-repurchase.png', import.meta.url).href, title: t('profile.sellBack'), path: '/profile/repurchase-record' },
+  { icon: new URL('@/assets/images/icon-collection.png', import.meta.url).href, title: t('profile.collection'), path: '/profile/collection' },
 ])
 
 const handleNavigate = (path?: string) => {
@@ -196,7 +196,7 @@ const saveAvatar = async () => {
     <div class="px-4 -mt-16 relative z-20">
       <div class="bg-[#2c2c2c] rounded-2xl p-5 shadow-xl text-white">
          <div class="text-center mb-5 border-b border-gray-600 pb-4 relative">
-            <div class="text-xl font-bold tracking-tight">{{ t('profile.totalBalance') }}: {{ formatCurrency(userInfo.balance) }}฿</div>
+            <div class="text-xl font-bold tracking-tight">{{ t('profile.totalBalance') }}: {{ formatCurrency(userInfo.balance) }}$</div>
          </div>
 
          <div class="flex relative items-center mb-6">
@@ -205,11 +205,11 @@ const saveAvatar = async () => {
 
             <div class="flex-1 text-center pr-2">
                <div class="text-xs text-gray-300 mb-1">{{ t('profile.todayIncome') }}</div>
-               <div class="text-lg font-bold">{{ formatCurrency(userInfo.todayEarnings) }}฿</div>
+               <div class="text-lg font-bold">{{ formatCurrency(userInfo.todayEarnings) }}$</div>
             </div>
             <div class="flex-1 text-center pl-2">
                <div class="text-xs text-gray-300 mb-1">{{ t('profile.totalIncome') }}</div>
-               <div class="text-lg font-bold">{{ formatCurrency(userInfo.totalRevenue) }}฿</div>
+               <div class="text-lg font-bold">{{ formatCurrency(userInfo.totalRevenue) }}$</div>
             </div>
          </div>
 
@@ -243,7 +243,7 @@ const saveAvatar = async () => {
                @click="handleNavigate(item.path)"
              >
                 <div class="w-10 h-10 rounded-full flex items-center justify-center border border-gray-200 text-black">
-                   <van-icon :name="item.icon" size="20" />
+                   <img :src="item.icon" class="w-5 h-5 object-contain" />
                 </div>
                 <span class="text-xs text-gray-600">{{ item.title }}</span>
              </div>
@@ -265,7 +265,7 @@ const saveAvatar = async () => {
           >
              <template #icon>
                 <div class="w-6 flex justify-center mr-2">
-                   <van-icon :name="item.icon" size="18" color="#1F2937" />
+                   <img :src="item.icon" class="w-5 h-5 object-contain" />
                 </div>
              </template>
              <template #value>

@@ -158,10 +158,10 @@ const mockBrands: BrandInfo[] = [
 
 // Mock Banners
 const banners = [
-  'https://08-tiki-img.s3.ap-southeast-1.amazonaws.com/image/20251206/f6a379542664a7c8fef6898687b9da87.jpg',
-  'https://08-tiki-img.s3.ap-southeast-1.amazonaws.com/image/20251206/9b80c2f2775645e32b99724f0085735a.jpg',
-  'https://08-tiki-img.s3.ap-southeast-1.amazonaws.com/image/20251206/6c5c0a63e0ff75498a1495a60a728739.jpg',
-  'https://08-tiki-img.s3.ap-southeast-1.amazonaws.com/image/20251206/675d3819a29f494d94c00931574478fc.jpg'
+  new URL('@/assets/images/banner1.jpg', import.meta.url).href,
+  new URL('@/assets/images/banner2.jpg', import.meta.url).href,
+  new URL('@/assets/images/banner3.jpg', import.meta.url).href,
+  new URL('@/assets/images/banner4.jpg', import.meta.url).href,
 ]
 
 </script>
@@ -185,13 +185,13 @@ const banners = [
       
       <div class="absolute top-4 right-4 flex gap-2 z-50">
         <div class="bg-white/80 p-1.5 rounded-full backdrop-blur-sm cursor-pointer z-50 pointer-events-auto" @click.stop="router.push('/profile/order-record?tab=participating')">
-           <img src="https://www.thprestashop.store/static/index/red/images/gouwuche.png" class="w-5 h-5 pointer-events-none" />
+           <img src="@/assets/images/gouwuche.png" class="w-5 h-5 pointer-events-none" />
         </div>
         <div class="bg-white/80 p-1.5 rounded-full backdrop-blur-sm cursor-pointer z-50 pointer-events-auto" @click.stop="router.push('/profile/chat')">
-           <img src="https://www.thprestashop.store/static/index/red/images/kefu.png" class="w-5 h-5 pointer-events-none" />
+           <img src="@/assets/images/kefu.png" class="w-5 h-5 pointer-events-none" />
         </div>
         <div class="bg-white/80 p-1.5 rounded-full backdrop-blur-sm cursor-pointer z-50 pointer-events-auto" @click.stop="router.push('/profile')">
-           <img src="https://www.thprestashop.store/static/index/red/images/icon-me.png" class="w-5 h-5 pointer-events-none" />
+           <img src="@/assets/images/icon-me.png" class="w-5 h-5 pointer-events-none" />
         </div>
         <div
           class="bg-white/90 px-2 py-1 rounded text-xs font-bold text-red-600 flex items-center cursor-pointer active:scale-95 transition-transform z-50 pointer-events-auto"
@@ -312,15 +312,15 @@ const banners = [
              
              <div class="flex flex-col gap-1">
                 <div class="flex items-baseline gap-2">
-                   <span class="text-red-600 font-bold text-lg">{{ formatCurrency(prod.orderPrice) }}฿</span>
-                   <span class="text-gray-400 text-xs line-through">{{ formatCurrency(prod.labelPrice) }}฿</span>
+                   <span class="text-red-600 font-bold text-lg">{{ formatCurrency(prod.orderPrice) }}$</span>
+                   <span class="text-gray-400 text-xs line-through">{{ formatCurrency(prod.labelPrice) }}$</span>
                 </div>
                 
                 <!-- Commission Tag -->
                 <div class="flex items-center justify-between">
                    <div class="inline-flex items-center gap-1 bg-gray-600 text-white text-[10px] px-2 py-0.5 rounded-full">
                       <div class="i-carbon:currency-dollar"></div>
-                      <span>{{ t('home.commission') }}: {{ formatCurrency(prod.commission) }}฿</span>
+                      <span>{{ t('home.commission') }}: {{ formatCurrency(prod.commission) }}$</span>
                    </div>
                    
                    <button class="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center">

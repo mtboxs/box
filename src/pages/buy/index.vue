@@ -155,16 +155,15 @@ onMounted(() => {
                  </h3>
               </div>
 
-              <div>
-                 <!-- Price Row -->
-                 <div class="flex items-baseline gap-2 mb-1">
-                    <span class="text-red-600 font-bold text-lg">{{ formatCurrency(item.orderPrice) }}฿</span>
-                    <span class="text-gray-400 text-xs line-through">{{ formatCurrency(item.labelPrice) }}฿</span>
+              <div class="flex flex-col gap-1">
+                 <div class="flex items-baseline gap-2">
+                    <span class="text-red-600 font-bold text-lg">{{ formatCurrency(item.orderPrice) }}$</span>
+                    <span class="text-gray-400 text-xs line-through">{{ formatCurrency(item.labelPrice) }}$</span>
                  </div>
 
-                 <!-- Commission Tag -->
-                 <div class="inline-flex items-center bg-gray-600 rounded-full px-2 py-0.5 max-w-max">
-                    <span class="text-[10px] text-white">ค่าคอมมิชชั่น: {{ formatCurrency(item.commission) }}฿</span>
+                 <div class="inline-flex items-center gap-1 bg-gray-600 text-white text-[10px] px-2 py-0.5 rounded-full w-fit">
+                    <div class="i-carbon:currency-dollar"></div>
+                    <span>ค่าคอมมิชชั่น: {{ formatCurrency(item.commission) }}$</span>
                  </div>
               </div>
             </div>
